@@ -1,0 +1,261 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hospital Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+
+        aside {
+            width: 200px;
+            background-color: green;
+            background-size: cover; /* Ensure the background image covers the entire element */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        section {
+            height: 100vh;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 5%;
+        }
+
+        nav li {
+            margin-bottom: 5%;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.2em;
+            display: block;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+            nav a:hover {
+                background-color: #555;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetSectionId = this.getAttribute('href').substring(1);
+
+                    document.querySelectorAll('section').forEach(section => {
+                        section.style.display = 'none';
+                    });
+
+                    document.getElementById(targetSectionId).style.display = 'flex';
+
+                    document.getElementById(targetSectionId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <aside>
+        <nav>
+            <ul>
+                <li><a href="#section1">Departments</a> </li>
+                <li><a href="#section2">Doctors</a></li>
+                <li><a href="#section3">Patients</a></li>
+                <li><a href="#section4">Appointmens</a></li>
+                <li><a href="#section5">Settings</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div>
+        <section id="section1" style="display: flex;">
+            @model AdminViewModel
+            <!-- Button to open the modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DepartmentRegistrationModal">
+                Add New Department
+            </button>
+            <div class="modal fade" id="DepartmentRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="DepartmentRegistrationModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="DepartmentRegistrationModalLabel">Register Department</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="departmentModalContent">
+                            @await Html.PartialAsync("~/Views/PartialViews/_DepartmentRegisterPartialView.cshtml", new Department())
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Departmant Name</th>
+                        <th>Department ID</th>
+                        <th>Phone Number</th>
+                        <th>Events</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Add rows with doctor information here -->
+                    @if (Model != null && Model.Departments != null && Model.Departments.Count > 0)
+                    {
+                        @foreach (var department in Model.Departments)
+                        {
+                            <tr>
+                                <td>@department.DepartmentName</td>
+                                <td>@department.DepartmentId</td>
+                                <td>@department.PhoneNumber</td>
+                                <td>
+                                    <a asp-controller="Admin" asp-action="DepartmentEdit" asp-route-id="@department.DepartmentId">Edit</a>
+                                    <a asp-controller="Admin" asp-action="DepartmentView" asp-route-id="@department.DepartmentId">View</a>
+                                    <a asp-controller="Admin" asp-action="DepartmentRemove" asp-route-id="@department.DepartmentId"
+                                       onclick="return confirm('Are you sure you want to remove this department?')">Remove</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4">No departments found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </section>
+    </div>
+    <div>
+        <section id="section2" style="display: none;">
+            <form asp-controller="Admin" asp-action="DoctorRegister" method="post">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DoctorRegistrationModal">
+                    Add New Doctor
+            </button>
+            </form>
+            <div class="modal fade" id="DoctorRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="DoctorRegistrationModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="DoctorRegistrationModalLabel">Register Doctor</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="doctorModalContent">
+                            @await Html.PartialAsync("~/Views/PartialViews/_DoctorRegisterPartialView.cshtml", new Doctor())
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Doctor Name</th>
+                        <th>Doctor ID</th>
+                        <th>E-mail</th>
+                        <th>Department</th>
+                        <th>Events</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Add rows with doctor information here -->
+                    @if (Model != null && Model.Doctors != null && Model.Doctors.Count > 0)
+                    {
+                        @foreach (var doctor in Model.Doctors)
+                        {
+                            <tr>
+                                <td>@doctor.FullName</td>
+                                <td>@doctor.DoctorId</td>
+                                <td>@doctor.Email</td>
+                                <td>@doctor.Department.DepartmentName</td>
+                                <td>
+                                    <a asp-controller="Admin" asp-action="DoctorEdit" asp-route-id="@doctor.DoctorId">Edit</a>
+                                    <a asp-controller="Admin" asp-action="DoctorView" asp-route-id="@doctor.DoctorId">View</a>
+                                    <a asp-controller="Admin" asp-action="DoctorRemove" asp-route-id="@doctor.DoctorId"
+                                       onclick="return confirm('Are you sure you want to remove this doctor?')">Remove</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4">No doctors found.</td>
+                        </tr>
+                    }
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <div>
+        <section id="section3" style="display: none;">Patients</section>
+    </div>
+    <div>
+        <section id="section4" style="display: none;">Appointments</section>
+    </div>
+    <div>
+        <section id="section5" style="display: none;">Settings</section>
+    </div>
+
+
+    <footer>
+        <p>Copyright &copy; 2023</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

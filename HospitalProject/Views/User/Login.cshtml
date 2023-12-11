@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Login Page";
+}
+<!-- contact section -->
+<section class="contact_section layout_padding">
+    <div class="container">
+        <div class="heading_container">
+            <h2>
+                Sign In
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form_container contact-form">
+                    @model HospitalProject.Models.LoginViewModel
+
+                    <form asp-controller="User" asp-action="Login" method="post">
+                        <div class="form-row">
+                            <div class="col-lg-6">
+                                <div>
+                                    <label asp-for="Email"></label>
+                                    <input asp-for="Email" placeholder="Your E-mail" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label asp-for="Password"></label>
+                                    <input asp-for="Password" type="password" placeholder="Password" />
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <input asp-for="RememberMe" /> <!-- Checkbox for Remember Me -->
+                            <label asp-for="RememberMe">Remember Me</label>
+                        </div>
+                        <div class="btn_box">
+                            <button type="submit">
+                                LOG IN
+                            </button>
+                        </div>
+                        <div class="btn_box">
+                            <button type="button" style="background-color:#ffffff; color:#1fab89; margin-top:3%"
+                                    onmouseover="this.style.color='#ffffff'; this.style.backgroundColor='#1fab89'"
+                                    onmouseout="this.style.color='#1fab89'; this.style.backgroundColor='#ffffff'"
+                                    onclick="signIn()">
+                                SIGN UP
+                            </button>
+                        </div>
+                    </form>
+
+                    <script>
+                        function signIn() {
+                            // Your custom JavaScript logic for signing in
+                            // This could include form validation, AJAX requests, etc.
+
+                            // For example, you can redirect to another site
+                            window.location.href = '@Url.Action("Register", "User")';
+                        }
+                    </script>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="map_container">
+                    <div class="map">
+                        <div id="googleMap"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end contact section -->

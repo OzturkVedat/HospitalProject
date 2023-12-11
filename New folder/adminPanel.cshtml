@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hospital Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+  <aside>
+    <nav>
+    <ul>
+      <li><a href="#section1">Departments</a></li>
+      <li><a href="#section2">Doctors</a>
+        @model List<Doctor>
+        <table>
+          <thead>
+            <tr>
+              <th>Doctor Name</th>
+              <th>Email</th>
+              <th>Specialties</th>
+              <th>Department</th>
+              <th>Events</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Add rows with doctor information here -->
+            @foreach (var doctor in Model)
+        {
+            <tr>
+                <td>@doctor.Name</td>
+                <td>@doctor.Email</td>
+                <td>@doctor.Specialties</td>
+                <td>@doctor.Department</td>
+                <td><button onclick="handleButtonClick('Edit', @doctor.Id)">Edit</button>
+                    <button onclick="handleButtonClick('View', @doctor.Id)">View 2</button>
+                    <button onclick="handleButtonClick('Remove', @doctor.Id)">Remove</button></td>
+            </tr>
+        }
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </li>
+      <li><a href="#section3">Patients</a></li>
+      <li><a href="#section4">Appointmens</a></li>
+      <li><a href="#section5">Settings</a></li>
+    </ul>
+  </nav>
+  </aside>
+
+  <div>
+    <section id="section1" style="display: flex;">Departments</section>
+  </div>
+  <div>
+    <section id="section2" style="display: none;">Doctors</section>
+  </div>
+  <div>
+    <section id="section3" style="display: none;">Patients</section>
+  </div>
+  <div>
+    <section id="section4" style="display: none;">Appointments</section>
+  </div>
+  <div>
+    <section id="section5" style="display: none;">Settings</section>
+  </div>
+
+
+  <footer>
+    <p>Copyright &copy; 2023</p>
+  </footer>
+
+</body>
+</html>
