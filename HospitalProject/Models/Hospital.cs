@@ -13,7 +13,7 @@ namespace HospitalProject.Models
 
     public class Doctor
     {
-        [RegularExpression(@"^\d{11}$", ErrorMessage = "Doctor's Id must be 11 digits.")]
+       // [RegularExpression(@"^\d{11}$", ErrorMessage = "Doctor's Id must be 11 digits.")]
         public int DoctorId { get; set; }
         public Department? Department { get; set; }     // navigation property (one-to-many relation)
         public int? DepartmentId { get; set; }       // foreign key
@@ -24,9 +24,8 @@ namespace HospitalProject.Models
         [RegularExpression("^[a-zA-Z ]+$", ErrorMessage = "docSurname must contain only letters.")]
         public string DoctorLastName { get; set; }
 
-        public DoctorRank Rank { get; set; }
 
-        public string FullName => $"{DoctorFirstName} {DoctorLastName} ({Rank})";
+        public string FullName => $"{DoctorFirstName} {DoctorLastName}";
 
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; }
@@ -34,14 +33,7 @@ namespace HospitalProject.Models
         public ICollection<Appointment> Appointments { get; set; }
 
     }
-    public enum DoctorRank
-    {
-        Dr,
-        Resident,
-        Attending,
-        Specialist,
-        Chief
-    }
+
 
     public class WorkingHour
     {

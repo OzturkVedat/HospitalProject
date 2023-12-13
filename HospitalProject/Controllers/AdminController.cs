@@ -6,7 +6,7 @@ using System.Numerics;
 
 namespace HospitalProject.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -100,7 +100,7 @@ namespace HospitalProject.Controllers
                     // Log the exception for debugging purposes if needed
 
                     // Return the view with the same model to display validation errors
-                    return View("~/Views/PartialViews/_DoctorRegisterPartialView.cshtml", doctor);
+                    return RedirectToAction("AdminPanel");
                 }
             }
 

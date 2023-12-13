@@ -6,7 +6,7 @@
     <div class="container">
         <div class="heading_container">
             <h2>
-                Sign In
+                @_localization.GetKey("signIn").Value
             </h2>
         </div>
         <div class="row">
@@ -19,21 +19,21 @@
                             <div class="col-lg-6">
                                 <div>
                                     <label asp-for="Email"></label>
-                                    <input asp-for="Email" placeholder="Your E-mail" />
+                                    <input asp-for="Email" placeholder="@_localization.GetKey("email").Value" />
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div>
                                     <label asp-for="Password"></label>
-                                    <input asp-for="Password" type="password" placeholder="Password" />
+                                    <input asp-for="Password" type="password" placeholder="@_localization.GetKey("password").Value" />
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
                         <div>
                             <input asp-for="RememberMe" /> <!-- Checkbox for Remember Me -->
-                            <label asp-for="RememberMe">Remember Me</label>
+                            <label asp-for="RememberMe">@_localization.GetKey("rememberMe").Value</label>
                         </div>
                         <div class="btn_box">
                             <button type="submit">
