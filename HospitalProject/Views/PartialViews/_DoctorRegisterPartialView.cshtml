@@ -4,35 +4,27 @@
 <form asp-controller="Admin" asp-action="DoctorRegister" method="post">
     <!-- Add your form fields here -->
     <div class="form-group">
-        <label for="DoctorId">Doctor ID</label>
+        <label for="DoctorId">@_localization.GetKey("docId").Value</label>
         <input asp-for="DoctorId" class="form-control" />
         <span asp-validation-for="DoctorId" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label for="DoctorFirstName">First Name</label>
+        <label for="DoctorFirstName">@_localization.GetKey("firstName").Value</label>
         <input asp-for="DoctorFirstName" class="form-control" />
         <span asp-validation-for="DoctorFirstName" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label for="DoctorLastName">Last Name</label>
+        <label for="DoctorLastName">@_localization.GetKey("lastName").Value</label>
         <input asp-for="DoctorLastName" class="form-control" />
         <span asp-validation-for="DoctorLastName" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label for="Rank">Doctor Rank</label>
-        <select asp-for="Rank" asp-items="Html.GetEnumSelectList<DoctorRank>()" class="form-control">
-            <option value="">Select Rank</option>
-        </select>
-        <span asp-validation-for="Rank" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label for="Department">Department</label>
+        <label for="Department">@_localization.GetKey("docDep").Value</label>
         <select asp-for="DepartmentId" asp-items="@ViewBag.AvailableDepartments" class="form-control">
-            <option value="">Select Department</option>
+            <option value="">@_localization.GetKey("docDepSelect").Value</option>
         </select>
         <span asp-validation-for="DepartmentId" class="text-danger"></span>
     </div>
