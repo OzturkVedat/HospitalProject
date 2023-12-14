@@ -61,17 +61,17 @@
     }
     @model HospitalProject.Models.RegisterViewModel
 
-    <form asp-controller="User" asp-action="Register" method="post">
+    <form asp-controller="User" asp-action="Register" method="post" data-val="true" data-val-method="Validate">
         <div>
-            <label asp-for="FirstName">Name</label>
-            <input asp-for="FirstName" />
-            <span asp-validation-for="FirstName"></span>
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" />
+            <span asp-validation-for="Name"></span>
         </div>
 
         <div>
-            <label asp-for="LastName">Surname</label>
-            <input asp-for="LastName" />
-            <span asp-validation-for="LastName"></span>
+            <label asp-for="Surname">Surname</label>
+            <input asp-for="Surname" />
+            <span asp-validation-for="Surname"></span>
         </div>
 
 

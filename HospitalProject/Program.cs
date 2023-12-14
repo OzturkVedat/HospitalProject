@@ -26,7 +26,7 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnCh
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyConnectionString")));
 
-builder.Services.AddIdentity<CustomUser, IdentityRole>(options =>
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     // Configure Identity options
     options.Password.RequireDigit = false;
@@ -85,7 +85,7 @@ using var scope = app.Services.CreateScope();
 var serviceProvider = scope.ServiceProvider;
 
 var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
-var userManager = serviceProvider.GetRequiredService<UserManager<CustomUser>>();
+var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
 
 var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -94,14 +94,13 @@ var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>(
 await EnsureRoleExists(roleManager, "Admin");
 await EnsureRoleExists(roleManager, "Patient");
 await EnsureRoleExists(roleManager, "Doctor");
-await EnsureRoleExists(roleManager, "Scheduler");
 
 var adminEmail = "admin@example.com";
-
-var adminUser = new CustomUser { UserName = adminEmail, Email = adminEmail, Password = "admin" };
-
+var adminUser = new ApplicationUser {Name="admin",Surname="Admin",
+    UserName = adminEmail, Email = adminEmail };
+var password = "admin";
 // CreateAsync will also add the user to the database if it doesn't exist
-var result = await userManager.CreateAsync(adminUser, "admin");
+var result = await userManager.CreateAsync(adminUser, password);
 
 if (result.Succeeded)
 {

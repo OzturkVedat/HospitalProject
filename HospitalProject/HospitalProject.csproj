@@ -19,12 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\PartialViews\_DepartmentRegisterPartialView.cshtml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Views\PartialViews\_DoctorRegisterPartialView.cshtml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Folder Include="Views\PartialViews\" />
   </ItemGroup>
 
 </Project>

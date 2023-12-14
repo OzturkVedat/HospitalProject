@@ -165,6 +165,9 @@
   <data name="lastName" xml:space="preserve">
     <value>Soyad</value>
   </data>
+  <data name="noRecord" xml:space="preserve">
+    <value>Kayıt bulunamadı..</value>
+  </data>
   <data name="password" xml:space="preserve">
     <value>Şifreniz</value>
   </data>
@@ -173,6 +176,9 @@
   </data>
   <data name="phone" xml:space="preserve">
     <value>Telefon Numarası</value>
+  </data>
+  <data name="register" xml:space="preserve">
+    <value>Kaydet</value>
   </data>
   <data name="rememberMe" xml:space="preserve">
     <value>Beni hatırla</value>

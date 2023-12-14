@@ -10,11 +10,11 @@ namespace HospitalProject.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserManager<CustomUser> _userManager;
-        private readonly SignInManager<CustomUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
-        public UserController(UserManager<CustomUser> userManager, SignInManager<CustomUser> signInManager, ApplicationDbContext context)
-        {
+        public UserController(UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager, ApplicationDbContext context){
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
@@ -33,39 +33,29 @@ namespace HospitalProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new CustomUser
-                {             // inherited from IdentityUser
+                var user = new Patient  
+                {             
                     UserName = registerModel.Email,
                     Email = registerModel.Email,
-                    FirstName = registerModel.FirstName,
-                    LastName = registerModel.LastName,
-                    Password = registerModel.Password
+                    Name = registerModel.Name,
+                    Surname = registerModel.Surname,
                 };
-                var result = await _userManager.CreateAsync(user, user.Password);
+                var Password = registerModel.Password;  // for hashing the password
+                var result = await _userManager.CreateAsync(user, Password);    // create a user(patient)
 
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "Patient");
+                    await _userManager.AddToRoleAsync(user, "Patient"); // give role(Authorization)
                     Console.WriteLine("REGISTRATION SUCCESSFUL");
                     // Sign in the user
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
                     // Creating a related patient record
-                    var patient = new Patient
-                    {
-                        PatientFirstName = user.FirstName,
-                        PatientLastName = user.LastName,
-                        PatientId = user.Id,
-                        Appointments = new List<Appointment>(),
-                        MedicalRecords = new List<MedicalRecord>()
-                    };
-                    _context.Patients.Add(patient);
+                    _context.Patients.Add(user);
                     await _context.SaveChangesAsync();
-                    Console.WriteLine("User and patient saved to db");
+                    Console.WriteLine("User/patient saved to db");
                     return RedirectToAction("Login"); // redirect to login page
-
                 }
-
                 else
                 {
                     foreach (var error in result.Errors)
@@ -101,7 +91,7 @@ namespace HospitalProject.Controllers
                     var user = await _userManager.FindByEmailAsync(loginModel.Email);
                     var roles = await _userManager.GetRolesAsync(user);
 
-                    if (roles.Contains("Admin"))
+                    if (roles.Contains("Admin"))        // Authentication
                     {
                         return RedirectToAction("AdminPanel");
                     }
@@ -112,10 +102,6 @@ namespace HospitalProject.Controllers
                     else if (roles.Contains("Doctor"))
                     {
                         return RedirectToAction("DoctorPanel");
-                    }
-                    else if (roles.Contains("Scheduler"))
-                    {
-                        return RedirectToAction("SchedulerPanel");
                     }
                     Console.WriteLine("User is not authenticated..");
                 }
@@ -144,11 +130,5 @@ namespace HospitalProject.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "Scheduler")]
-        public IActionResult SchedulerPanel()
-        {
-            return View();
-        }
-        
     }
 }
