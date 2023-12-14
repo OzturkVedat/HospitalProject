@@ -1,5 +1,6 @@
 ﻿using HospitalProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Numerics;
@@ -10,26 +11,24 @@ namespace HospitalProject.Controllers
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public AdminController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public AdminController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         public IActionResult AdminPanel()
         {
             var departments = _context.Departments.OrderBy(d => d.DepartmentName).ToList();
 
-            // Create a SelectList for the dropdown
             var departmentSelectList = new SelectList(departments, "DepartmentId", "DepartmentName");
-
-            // Assign the SelectList to ViewBag
-            ViewBag.AvailableDepartments = departmentSelectList;
+            ViewBag.AvailableDepartments = departmentSelectList;    // Viewbag for doctor registration
 
             var adminViewModel = new AdminViewModel
             {
-                Doctors = _context.Doctors.OrderBy(d => d.DoctorFirstName).ToList(),
+                Doctors = _context.Doctors.OrderBy(d => d.Name).ToList(),
                 Departments = _context.Departments.OrderBy(dep => dep.DepartmentName).ToList(),
-                Patients = _context.Patients.OrderBy(p => p.PatientFirstName).ToList(),
+                Patients = _context.Patients.OrderBy(p => p.Name).ToList(),
                 Appointments = _context.Appointments.OrderBy(app => app.Id).ToList()
             };
             return View("~/Views/User/AdminPanel.cshtml", adminViewModel); // send the data to adminPanel
@@ -48,66 +47,58 @@ namespace HospitalProject.Controllers
                 }
                 catch (Exception ex)
                 {
-                    // Handle any exceptions that might occur during database interaction
                     ModelState.AddModelError(string.Empty, "An error occurred while saving the department. Please try again.");
-                    // Log the exception for debugging purposes if needed
-
-                    // Return the view with the same model to display validation errors
-                    return PartialView("~/Views/PartialViews/_DepartmentRegisterPartialView.cshtml", department);
-                }
-            }
-            return PartialView("~/Views/PartialViews/_DepartmentRegisterPartialView.csthml", department);
-        }
-
-        [HttpPost]
-        public IActionResult DoctorRegister(Doctor doctor)
-        {
-            // Check if the model is valid
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    // Fetch the selected department from the database
-                    var selectedDepartment = _context.Departments
-                        .Where(d => d.DepartmentId == doctor.DepartmentId)
-                        .FirstOrDefault();
-
-
-                    if (selectedDepartment != null)
-                    {
-                        // Associate the doctor with the selected department
-                        doctor.Department = selectedDepartment;
-
-                        // Add the doctor to the department's Doctors collection
-                        selectedDepartment.Doctors.Add(doctor);
-
-                        // Add the doctor to the Doctors DbSet and save changes
-                        _context.Doctors.Add(doctor);
-                        _context.SaveChanges();
-
-                        // Redirect to a success page or perform other actions
-                        return RedirectToAction("AdminPanel", "User");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, "Selected department not found.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Handle any exceptions that might occur during database interaction
-                    ModelState.AddModelError(string.Empty, "An error occurred while saving the doctor. Please try again.");
-                    // Log the exception for debugging purposes if needed
-
-                    // Return the view with the same model to display validation errors
                     return RedirectToAction("AdminPanel");
                 }
             }
+            var dep = new AdminViewModel();
+            dep.department = department;
 
-            // If the model is not valid, return the view with validation errors
-            // This will happen if the user submits the form with invalid data
-            return View("~/Views/PartialViews/_DoctorRegisterPartialView.cshtml", doctor);
+            return View("~/Views/User/AdminPanel.cshtml", dep);      // invalid model
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DoctorRegister(DocRegisterViewModel newDoctor)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new Doctor
+                {
+                    UserName = newDoctor.Email,
+                    Email = newDoctor.Email,
+                    Name = newDoctor.Name,
+                    Surname = newDoctor.Surname,
+                    DepartmentId = newDoctor.DepartmentId,
+                    WorkingHours = newDoctor.WorkingHoursPerWeek
+                };
+                var result = await _userManager.CreateAsync(user, newDoctor.Password);    // create a user(doctor)
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Doctor"); // give the doctor role
+                    var selectedDepartment = _context.Departments
+                        .Where(d => d.DepartmentId == newDoctor.DepartmentId)
+                        .FirstOrDefault();
+                    if (selectedDepartment != null)
+                    {
+                        selectedDepartment.Doctors.Add(user);       // to the department's doctors collection
+                        _context.Doctors.Add(user);
+                        _context.SaveChanges();
+                    }
+                    else
+                        ModelState.AddModelError(string.Empty, "Selected department not found.");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                        ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return RedirectToAction("AdminPanel", "User");      // if registered
+            }
+            var doc = new AdminViewModel();
+            doc.doctor = newDoctor;
+            return View("~/Views/User/AdminPanel.cshtml", doc); // invalid model
+        }
+
 
         public IActionResult DoctorEdit(int id)
         {

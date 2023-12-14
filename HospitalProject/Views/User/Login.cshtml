@@ -14,7 +14,7 @@
                 <div class="form_container contact-form">
                     @model HospitalProject.Models.LoginViewModel
 
-                    <form asp-controller="User" asp-action="Login" method="post">
+                    <form asp-controller="User" asp-action="Login" method="post" data-val="true" data-val-method="Validate">
                         <div class="form-row">
                             <div class="col-lg-6">
                                 <div>

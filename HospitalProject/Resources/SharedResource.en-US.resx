@@ -165,6 +165,9 @@
   <data name="lastName" xml:space="preserve">
     <value>Last Name</value>
   </data>
+  <data name="noRecord" xml:space="preserve">
+    <value>No record found..</value>
+  </data>
   <data name="password" xml:space="preserve">
     <value>Password</value>
   </data>
@@ -173,6 +176,9 @@
   </data>
   <data name="phone" xml:space="preserve">
     <value>Phone Number</value>
+  </data>
+  <data name="register" xml:space="preserve">
+    <value>Register</value>
   </data>
   <data name="rememberMe" xml:space="preserve">
     <value>Remember Me</value>

@@ -7,14 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HospitalProject.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<CustomUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         // parameterless constructor for migrations and other scenarios
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
-
         public DbSet<Department> Departments { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<WorkingHour> WorkingHours { get; set; }
