@@ -93,7 +93,6 @@ var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>(
 // Ensure roles exist
 await EnsureRoleExists(roleManager, "Admin");
 await EnsureRoleExists(roleManager, "Patient");
-await EnsureRoleExists(roleManager, "Doctor");
 
 var adminEmail = "admin@example.com";
 var adminUser = new ApplicationUser {Name="admin",Surname="Admin",

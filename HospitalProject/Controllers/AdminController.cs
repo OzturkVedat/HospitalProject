@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Numerics;
 
 namespace HospitalProject.Controllers
@@ -17,21 +18,25 @@ namespace HospitalProject.Controllers
             _context = context;
             _userManager = userManager;
         }
+        public IActionResult LoadSection(string section)
+        {
+            if (section == "_section1")
+            {
+                var doctors = _context.Doctors.ToList();  // LINQ
+                var viewModel = new AdminDocViewModel { Doctors = doctors };
+                return View(section, viewModel);
+            }
+            else if (section == "_section2")
+            {
+                var departments = _context.Departments.ToList();
+                var viewModel = new AdminDepViewModel { Departments = departments };
+                return View(section, viewModel);
+            }
+            return View(section);
+        }
         public IActionResult AdminPanel()
         {
-            var departments = _context.Departments.OrderBy(d => d.DepartmentName).ToList();
-
-            var departmentSelectList = new SelectList(departments, "DepartmentId", "DepartmentName");
-            ViewBag.AvailableDepartments = departmentSelectList;    // Viewbag for doctor registration
-
-            var adminViewModel = new AdminViewModel
-            {
-                Doctors = _context.Doctors.OrderBy(d => d.Name).ToList(),
-                Departments = _context.Departments.OrderBy(dep => dep.DepartmentName).ToList(),
-                Patients = _context.Patients.OrderBy(p => p.Name).ToList(),
-                Appointments = _context.Appointments.OrderBy(app => app.Id).ToList()
-            };
-            return View("~/Views/User/AdminPanel.cshtml", adminViewModel); // send the data to adminPanel
+            return RedirectToAction("LoadSection", new { section = "_section1" });
         }
 
         [HttpPost]
@@ -41,79 +46,72 @@ namespace HospitalProject.Controllers
             {
                 try
                 {
-                    _context.Departments.Add(department);
+                    // Check if the department already exists in the database
+                    var departmentExist = _context.Departments.Any(d => d.DepartmentId == department.DepartmentId);
+
+                    if (departmentExist)
+                    {
+                        var existingDepartment = _context.Departments.Find(department.DepartmentId);
+                        _context.Entry(existingDepartment).CurrentValues.SetValues(department);
+                        _context.Entry(existingDepartment).State = EntityState.Modified;
+                        Console.WriteLine("department modified");
+                    }
+                    else
+                    {
+                        _context.Departments.Add(department);
+                        Console.WriteLine("department added");
+                    }
                     _context.SaveChanges();
-                    return RedirectToAction("AdminPanel", "User");
                 }
                 catch (Exception ex)
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while saving the department. Please try again.");
-                    return RedirectToAction("AdminPanel");
                 }
             }
-            var dep = new AdminViewModel();
-            dep.department = department;
-
-            return View("~/Views/User/AdminPanel.cshtml", dep);      // invalid model
+            return RedirectToAction("AdminPanel");
         }
 
         [HttpPost]
-        public async Task<IActionResult> DoctorRegister(DocRegisterViewModel newDoctor)
+        public IActionResult DepartmentRemove(int id)
         {
-            if (ModelState.IsValid)
+            var department = _context.Departments.Include(d => d.Doctors).FirstOrDefault(d => d.DepartmentId == id);
+
+            if (department == null)
+                return NotFound();
+            try
             {
-                var user = new Doctor
+                if (department.Doctors != null && department.Doctors.Any())
                 {
-                    UserName = newDoctor.Email,
-                    Email = newDoctor.Email,
-                    Name = newDoctor.Name,
-                    Surname = newDoctor.Surname,
-                    DepartmentId = newDoctor.DepartmentId,
-                    WorkingHours = newDoctor.WorkingHoursPerWeek
-                };
-                var result = await _userManager.CreateAsync(user, newDoctor.Password);    // create a user(doctor)
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(user, "Doctor"); // give the doctor role
-                    var selectedDepartment = _context.Departments
-                        .Where(d => d.DepartmentId == newDoctor.DepartmentId)
-                        .FirstOrDefault();
-                    if (selectedDepartment != null)
-                    {
-                        selectedDepartment.Doctors.Add(user);       // to the department's doctors collection
-                        _context.Doctors.Add(user);
-                        _context.SaveChanges();
-                    }
-                    else
-                        ModelState.AddModelError(string.Empty, "Selected department not found.");
+                    // Set the Doctors property to null for associated doctors
+                    foreach (var doctor in department.Doctors)
+                        doctor.Department = null;
                 }
-                else
-                {
-                    foreach (var error in result.Errors)
-                        ModelState.AddModelError(string.Empty, error.Description);
-                }
-                return RedirectToAction("AdminPanel", "User");      // if registered
+                _context.Departments.Remove(department);
+                _context.SaveChanges();
             }
-            var doc = new AdminViewModel();
-            doc.doctor = newDoctor;
-            return View("~/Views/User/AdminPanel.cshtml", doc); // invalid model
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "An error occurred while trying to remove the department.");
+            }
+            return RedirectToAction("AdminPanel");
         }
 
 
-        public IActionResult DoctorEdit(int id)
+        [HttpPost]
+        public IActionResult DoctorRegister(Doctor newDoctor)
         {
-            // Retrieve the doctor from the database
-            var doctor = _context.Doctors.Find(id);
-
-            if (doctor == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                var department = _context.Departments.FirstOrDefault(d => d.DepartmentId == newDoctor.DepartmentId);
+                if (department != null)
+                    department.Doctors.Add(newDoctor);
+
+                _context.Doctors.Add(newDoctor);
+                _context.SaveChanges();
             }
-
-            // Perform any necessary logic for editing
-            // ...
-
-            return View(doctor);
+            else
+                Console.WriteLine("INVALID MODEL STATE");
+            return RedirectToAction("LoadSection", new { section = "_section1" });
         }
 
         public IActionResult DoctorView(int id)
