@@ -180,8 +180,8 @@ namespace HospitalProject.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DepartmentId = table.Column<int>(type: "int", nullable: true),
-                    StartHour = table.Column<TimeSpan>(type: "time", nullable: true),
-                    EndHour = table.Column<TimeSpan>(type: "time", nullable: true)
+                    StartHour = table.Column<int>(type: "int", nullable: true),
+                    EndHour = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

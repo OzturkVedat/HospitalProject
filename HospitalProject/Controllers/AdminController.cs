@@ -22,10 +22,11 @@ namespace HospitalProject.Controllers
         {
             if (section == "_section1")
             {
-                if (_context.Doctors.Any(d => d.Name == null || d.Surname == null)) 
-                    Console.WriteLine("DOCTOR TABLE CONTAINS NULL");
-                
-                else{
+                if (_context.Doctors.Any(d => d.Name == null || d.Surname == null))
+                    Console.WriteLine("DOCTORS TABLE CONTAINS NULL");
+
+                else
+                {
                     var doctors = _context.Doctors.ToList();  // LINQ
                     var viewModel = new AdminDocViewModel { Doctors = doctors };
                     return View(section, viewModel);
@@ -34,14 +35,33 @@ namespace HospitalProject.Controllers
             else if (section == "_section2")
             {
                 if (_context.Departments.Any(d => d.DepartmentName == null || d.DepartmentId == null))
-                    Console.WriteLine("DEPARTMENT TABLE CONTAINS NULL");  
-                
-                else{
+                    Console.WriteLine("DEPARTMENTS TABLE CONTAINS NULL");
+                else
+                {
                     var departments = _context.Departments.ToList();
                     var viewModel = new AdminDepViewModel { Departments = departments };
                     return View(section, viewModel);
                 }
-
+            }
+            else if(section == "_section3")
+            {
+                if (_context.Patients.Any(p => p.Id == null || p.UserName == null))
+                    Console.WriteLine("PATIENTS TABLE CONTAINS NULL");
+                else
+                {
+                    var patients = _context.Patients.ToList();
+                    return View(section, patients);
+                }
+            }
+            else if (section == "_section4")
+            {
+                if(_context.Appointments.Any(a => a.Id == null || a.Date == null))
+                    Console.WriteLine("APPOINTMENTS TABLE CONTAINS NULL");
+                else
+                {
+                    var appointments = _context.Appointments.ToList();
+                    return View(section, appointments);
+                }
             }
             return View(section);
         }
@@ -78,8 +98,14 @@ namespace HospitalProject.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while saving the department. Please try again.");
                 }
+                return RedirectToAction("AdminPanel");
             }
-            return RedirectToAction("AdminPanel");
+            else
+            {
+                AdminDepViewModel viewModel = new AdminDepViewModel();
+                viewModel.department = department;
+                return View("~/Views/Admin/_section2.cshtml", viewModel);
+            }
         }
 
         [HttpPost]
@@ -127,6 +153,11 @@ namespace HospitalProject.Controllers
                     }
                     else
                     {
+                        var department = _context.Departments.FirstOrDefault(d => d.DepartmentId == newDoctor.DepartmentId);
+                        if (department.DepartmentId != null)
+                        {
+                            department.Doctors.Add(newDoctor);
+                        }
                         _context.Doctors.Add(newDoctor);
                         Console.WriteLine("doctor added");
                     }
@@ -136,9 +167,15 @@ namespace HospitalProject.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while saving the doctor. Please try again.");
                 }
+                Console.WriteLine("VALID DOCTOR MODEL");
+                return RedirectToAction("AdminPanel");
             }
-            Console.WriteLine("INVALID DOCTOR MODEL");
-            return RedirectToAction("AdminPanel");
+            else
+            {
+                AdminDocViewModel viewModel = new AdminDocViewModel();
+                viewModel.doctor = newDoctor;
+                return View("~/Views/Admin/_section1.cshtml", viewModel);
+            }
         }
 
         public IActionResult DoctorView(int id)
