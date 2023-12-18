@@ -22,15 +22,26 @@ namespace HospitalProject.Controllers
         {
             if (section == "_section1")
             {
-                var doctors = _context.Doctors.ToList();  // LINQ
-                var viewModel = new AdminDocViewModel { Doctors = doctors };
-                return View(section, viewModel);
+                if (_context.Doctors.Any(d => d.Name == null || d.Surname == null)) 
+                    Console.WriteLine("DOCTOR TABLE CONTAINS NULL");
+                
+                else{
+                    var doctors = _context.Doctors.ToList();  // LINQ
+                    var viewModel = new AdminDocViewModel { Doctors = doctors };
+                    return View(section, viewModel);
+                }
             }
             else if (section == "_section2")
             {
-                var departments = _context.Departments.ToList();
-                var viewModel = new AdminDepViewModel { Departments = departments };
-                return View(section, viewModel);
+                if (_context.Departments.Any(d => d.DepartmentName == null || d.DepartmentId == null))
+                    Console.WriteLine("DEPARTMENT TABLE CONTAINS NULL");  
+                
+                else{
+                    var departments = _context.Departments.ToList();
+                    var viewModel = new AdminDepViewModel { Departments = departments };
+                    return View(section, viewModel);
+                }
+
             }
             return View(section);
         }
@@ -98,20 +109,36 @@ namespace HospitalProject.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DoctorRegister(Doctor newDoctor)
         {
             if (ModelState.IsValid)
             {
-                var department = _context.Departments.FirstOrDefault(d => d.DepartmentId == newDoctor.DepartmentId);
-                if (department != null)
-                    department.Doctors.Add(newDoctor);
-
-                _context.Doctors.Add(newDoctor);
-                _context.SaveChanges();
+                try
+                {
+                    // Check if the department already exists in the database
+                    var doctorExist = _context.Doctors.Any(d => d.DoctorId == newDoctor.DoctorId);
+                    if (doctorExist)
+                    {
+                        var existingDoctor = _context.Doctors.Find(newDoctor.DoctorId);
+                        _context.Entry(existingDoctor).CurrentValues.SetValues(newDoctor);
+                        _context.Entry(existingDoctor).State = EntityState.Modified;
+                        Console.WriteLine("doctor edited");
+                    }
+                    else
+                    {
+                        _context.Doctors.Add(newDoctor);
+                        Console.WriteLine("doctor added");
+                    }
+                    _context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, "An error occurred while saving the doctor. Please try again.");
+                }
             }
-            else
-                Console.WriteLine("INVALID MODEL STATE");
-            return RedirectToAction("LoadSection", new { section = "_section1" });
+            Console.WriteLine("INVALID DOCTOR MODEL");
+            return RedirectToAction("AdminPanel");
         }
 
         public IActionResult DoctorView(int id)

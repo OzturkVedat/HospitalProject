@@ -20,7 +20,9 @@
         <ul>
             @foreach (var doctor in Model.Doctors)
             {
-                <li>@doctor.FullName</li>
+                <li>@doctor.DoctorId</li>
+                <li>@doctor.Name</li>
+                <li>@doctor.Surname</li>
             }
         </ul>
     }

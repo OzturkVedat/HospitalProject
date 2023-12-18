@@ -17,34 +17,40 @@
                     </button>
                 </div>
                 <div class="modal-body" id="doctorModalContent">
-                    <form asp-controller="Admin" asp-action="DoctorRegister" method="post" data-val="true" id="Form">
-                        <input type="hidden" asp-for="doctor.DoctorId" />
+                    <form asp-controller="Admin" asp-action="DoctorRegister" method="post">
                         <div class="form-group">
-                            <label asp-for="doctor.Name">@_localization.GetKey("firstName").Value</label>
-                            <input asp-for="doctor.Name" name="doctor.Name"  class="form-control" />
+                            <label asp-for="doctor.Name"></label>
+                            <input asp-for="doctor.Name" class="form-control" />
                             <span asp-validation-for="doctor.Name" class="text-danger"></span>
                         </div>
+
                         <div class="form-group">
-                            <label asp-for="doctor.Surname">@_localization.GetKey("lastName").Value</label>
-                            <input asp-for="doctor.Surname" name="doctor.Surname" class="form-control" />
+                            <label asp-for="doctor.Surname"></label>
+                            <input asp-for="doctor.Surname" class="form-control" />
                             <span asp-validation-for="doctor.Surname" class="text-danger"></span>
                         </div>
+
                         <div class="form-group">
-                            <label asp-for="doctor.DepartmentId">@_localization.GetKey("depId").Value</label>
-                            <input asp-for="doctor.DepartmentId" name="doctor.DepartmentId" type="number" min="0" class="form-control" />
+                            <label asp-for="doctor.DepartmentId"></label>
+                            <input asp-for="doctor.DepartmentId" class="form-control" />
                             <span asp-validation-for="doctor.DepartmentId" class="text-danger"></span>
                         </div>
+
                         <div class="form-group">
-                            <label asp-for="doctor.StartHour">@_localization.GetKey("startHour").Value</label>
-                            <input asp-for="doctor.StartHour" name="doctor.StartHour" type="time" class="form-control" />
+                            <label asp-for="doctor.StartHour"></label>
+                            <input asp-for="doctor.StartHour" type="time" class="form-control" />
                             <span asp-validation-for="doctor.StartHour" class="text-danger"></span>
                         </div>
+
                         <div class="form-group">
-                            <label asp-for="doctor.EndHour">@_localization.GetKey("endHour").Value</label>
-                            <input asp-for="doctor.EndHour" type="time" name="doctor.EndHour" class="form-control" />
+                            <label asp-for="doctor.EndHour"></label>
+                            <input asp-for="doctor.EndHour" type="time" class="form-control" />
                             <span asp-validation-for="doctor.EndHour" class="text-danger"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary">@_localization.GetKey("register").Value</button>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -53,23 +59,25 @@
     <table>
         <thead>
             <tr>
-                <th>@_localization.GetKey("fullName").Value</th>
+                <th>@_localization.GetKey("firstName").Value</th>
+                <th>@_localization.GetKey("lastName").Value</th>
                 <th>@_localization.GetKey("docId").Value</th>
                 <th>@_localization.GetKey("events").Value</th>
             </tr>
         </thead>
         <tbody>
-            @if (Model != null && Model.Doctors != null && Model.Doctors.Count > 0)
+            @if (Model.Doctors != null && Model.Doctors.Count > 0)
             {
                 @foreach (var doctor in Model.Doctors)
                 {
                     <tr>
-                        <td>@doctor.FullName</td>
+                        <td>@doctor.Name</td>
+                        <td>@doctor.Surname</td>
                         <td>@doctor.DoctorId</td>
-                        <td>
+                        @* <td>
                             <button type="button" data-toggle="modal" data-target="#viewModal-@doctor.DoctorId">View</button>
                             <button type="button" data-toggle="modal" data-target="#removeModal-@doctor.DoctorId">Remove</button>
-                        </td>
+                        </td> *@
                     </tr>
                 }
             }

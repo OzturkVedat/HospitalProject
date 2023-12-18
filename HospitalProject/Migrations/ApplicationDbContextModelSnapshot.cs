@@ -169,12 +169,14 @@ namespace HospitalProject.Migrations
                         .HasColumnType("time");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<TimeSpan?>("StartHour")
                         .HasColumnType("time");
 
                     b.Property<string>("Surname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DoctorId");
