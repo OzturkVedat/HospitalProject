@@ -46,6 +46,7 @@ namespace HospitalProject.Models
         public Department department { get; set; }
         public List<Department> Departments { get; set; }
     }
+
     public class PatientViewModel :Appointment         // for new appointments
     {
         public Patient Patient { get; set; }
