@@ -1,13 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HospitalProject.Models
 {
-   public class Doctor     
+    public class Doctor
     {
-        public int? DoctorId {  get; set; }
+        public int DoctorId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+
+        // Keep the changes from addedPatientPanel branch
         public string FullName => $"{Name} {Surname}";
+
         [DataType(DataType.Time)]
         [Display(Name = "Start Hour")]
         public DateTime? StartHour { get; set; }
@@ -15,6 +20,12 @@ namespace HospitalProject.Models
         [DataType(DataType.Time)]
         [Display(Name = "End Hour")]
         public DateTime? EndHour { get; set; }
-        public string Shift => $"{StartHour?.ToString("HH:mm")} - {EndHour?.ToString("HH:mm")}";
+
+        // Keep the changes from master branch
+        public Department? Department { get; set; }
+        public int? DepartmentId { get; set; }
+        public int? StartHour { get; set; }
+        public int? EndHour { get; set; }
+        public ICollection<Appointment>? Appointments { get; set; }
     }
 }

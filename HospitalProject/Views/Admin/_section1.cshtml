@@ -31,13 +31,13 @@
 
                         <div class="form-group">
                             <label asp-for="doctor.StartHour"></label>
-                            <input asp-for="doctor.StartHour" type="time" class="form-control" />
+                            <input asp-for="doctor.StartHour"  class="form-control" />
                             <span asp-validation-for="doctor.StartHour" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="doctor.EndHour"></label>
-                            <input asp-for="doctor.EndHour" type="time" class="form-control" />
+                            <input asp-for="doctor.EndHour" class="form-control" />
                             <span asp-validation-for="doctor.EndHour" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -68,12 +68,15 @@
                         <td>@doctor.DoctorId</td>
                         <td>@doctor.Name</td>
                         <td>@doctor.Surname</td>
+
                         <td>@doctor.Shift</td>
                         <td>
                             <button type="button" onclick="editDoctor(@doctor.DoctorId, '@doctor.Name',
                             '@doctor.Surname','@doctor.StartHour','@doctor.EndHour')">
                                 Edit
                             </button>
+                        <td>@doctor.DoctorId</td>
+                        <td>
                             <button type="button" data-toggle="modal" data-target="#viewModal-@doctor.DoctorId">View</button>
                             <button type="button" data-toggle="modal" data-target="#removeModal-@doctor.DoctorId">Remove</button>
                         </td>

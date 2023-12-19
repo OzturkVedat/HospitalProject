@@ -4,6 +4,7 @@ using HospitalProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231218143022_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,9 +167,6 @@ namespace HospitalProject.Migrations
                     b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
-
-                    b.Property<DateTime?>("EndHour")
-                        .HasColumnType("datetime2");
                     b.Property<int?>("EndHour")
                         .HasColumnType("int");
 
@@ -175,12 +174,8 @@ namespace HospitalProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-
-                    b.Property<DateTime?>("StartHour")
-       
                     b.Property<int?>("StartHour")
                         .HasColumnType("int");
-
 
                     b.Property<string>("Surname")
                         .IsRequired()
