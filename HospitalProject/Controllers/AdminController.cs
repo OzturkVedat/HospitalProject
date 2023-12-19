@@ -22,26 +22,48 @@ namespace HospitalProject.Controllers
         {
             if (section == "_section1")
             {
-                if (_context.Doctors.Any(d => d.Name == null || d.Surname == null)) 
-                    Console.WriteLine("DOCTOR TABLE CONTAINS NULL");
-                
-                else{
-                    var doctors = _context.Doctors.ToList();  // LINQ
-                    var viewModel = new AdminDocViewModel { Doctors = doctors };
+                if (_context.Doctors.Any(d => d.Name == null || d.Surname == null))
+                    Console.WriteLine("DOCTORS TABLE CONTAINS NULL");
+
+                else
+                {
+                    var viewModel = new AdminDocViewModel { 
+                        Doctors = _context.Doctors.ToList(),
+                        doctor=new Doctor(),
+                    };
                     return View(section, viewModel);
                 }
             }
             else if (section == "_section2")
             {
                 if (_context.Departments.Any(d => d.DepartmentName == null || d.DepartmentId == null))
-                    Console.WriteLine("DEPARTMENT TABLE CONTAINS NULL");  
-                
-                else{
+                    Console.WriteLine("DEPARTMENTS TABLE CONTAINS NULL");
+                else
+                {
                     var departments = _context.Departments.ToList();
                     var viewModel = new AdminDepViewModel { Departments = departments };
                     return View(section, viewModel);
                 }
-
+            }
+            else if(section == "_section3")
+            {
+                if (_context.Patients.Any(p => p.Id == null || p.UserName == null))
+                    Console.WriteLine("PATIENTS TABLE CONTAINS NULL");
+                else
+                {
+                    var patients = _context.Patients.ToList();
+                    return View(section, patients);
+                }
+            }
+            else if (section == "_section4")
+            {
+                if(_context.Appointments.Any(a => a.Id == null || a.Date == null))
+                    Console.WriteLine("APPOINTMENTS TABLE CONTAINS NULL");
+                else
+                {
+                    var appointments = _context.Appointments.ToList();
+                    return View(section, appointments);
+                }
             }
             return View(section);
         }
@@ -78,8 +100,14 @@ namespace HospitalProject.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while saving the department. Please try again.");
                 }
+                return RedirectToAction("AdminPanel");
             }
-            return RedirectToAction("AdminPanel");
+            else
+            {
+                AdminDepViewModel viewModel = new AdminDepViewModel();
+                viewModel.department = department;
+                return View("~/Views/Admin/_section2.cshtml", viewModel);
+            }
         }
 
         [HttpPost]
@@ -93,9 +121,8 @@ namespace HospitalProject.Controllers
             {
                 if (department.Doctors != null && department.Doctors.Any())
                 {
-                    // Set the Doctors property to null for associated doctors
-                    foreach (var doctor in department.Doctors)
-                        doctor.Department = null;
+                    //foreach (var doctor in department.Doctors)
+                    //    doctor.Department = null;
                 }
                 _context.Departments.Remove(department);
                 _context.SaveChanges();
@@ -110,24 +137,25 @@ namespace HospitalProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DoctorRegister(Doctor newDoctor)
+        public IActionResult RegisterDoctor(Doctor doctor)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     // Check if the department already exists in the database
-                    var doctorExist = _context.Doctors.Any(d => d.DoctorId == newDoctor.DoctorId);
+                    var doctorExist = _context.Doctors.Any(d => d.DoctorId == doctor.DoctorId);
+
                     if (doctorExist)
                     {
-                        var existingDoctor = _context.Doctors.Find(newDoctor.DoctorId);
-                        _context.Entry(existingDoctor).CurrentValues.SetValues(newDoctor);
+                        var existingDoctor = _context.Doctors.Find(doctor.DoctorId);
+                        _context.Entry(existingDoctor).CurrentValues.SetValues(doctor);
                         _context.Entry(existingDoctor).State = EntityState.Modified;
-                        Console.WriteLine("doctor edited");
+                        Console.WriteLine("doctor modified");
                     }
                     else
                     {
-                        _context.Doctors.Add(newDoctor);
+                        _context.Doctors.Add(doctor);
                         Console.WriteLine("doctor added");
                     }
                     _context.SaveChanges();
@@ -136,44 +164,26 @@ namespace HospitalProject.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while saving the doctor. Please try again.");
                 }
+                return RedirectToAction("AdminPanel");
             }
-            Console.WriteLine("INVALID DOCTOR MODEL");
-            return RedirectToAction("AdminPanel");
-        }
-
-        public IActionResult DoctorView(int id)
-        {
-            // Retrieve the doctor from the database
-            var doctor = _context.Doctors.Find(id);
-
-            if (doctor == null)
+            else
             {
-                return NotFound();
+                AdminDocViewModel viewModel = new AdminDocViewModel();
+                viewModel.doctor = doctor;
+                return View("~/Views/Admin/_section1.cshtml", viewModel);
             }
-
-            // Perform any necessary logic for viewing
-            // ...
-
-            return View(doctor);
         }
 
+        [HttpPost]
         public IActionResult DoctorRemove(int id)
         {
-            // Retrieve the doctor from the database
             var doctor = _context.Doctors.Find(id);
-
             if (doctor == null)
-            {
                 return NotFound();
-            }
-
-            // Perform any necessary logic for removal
-            // ...
-
+            
             _context.Doctors.Remove(doctor);
             _context.SaveChanges();
-
-            return RedirectToAction(nameof(Index)); // Redirect to the list of doctors after removal
+            return RedirectToAction("AdminPanel"); 
         }
     }
 }

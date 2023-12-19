@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231218113849_initial")]
+    [Migration("20231219125212_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -167,15 +167,15 @@ namespace HospitalProject.Migrations
                     b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
-                    b.Property<TimeSpan?>("EndHour")
-                        .HasColumnType("time");
+                    b.Property<DateTime?>("EndHour")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<TimeSpan?>("StartHour")
-                        .HasColumnType("time");
+                    b.Property<DateTime?>("StartHour")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Surname")
                         .IsRequired()
@@ -336,7 +336,7 @@ namespace HospitalProject.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HospitalProject.Models.Doctor", "Doctor")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -355,12 +355,10 @@ namespace HospitalProject.Migrations
 
             modelBuilder.Entity("HospitalProject.Models.Doctor", b =>
                 {
-                    b.HasOne("HospitalProject.Models.Department", "Department")
+                    b.HasOne("HospitalProject.Models.Department", null)
                         .WithMany("Doctors")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -417,11 +415,6 @@ namespace HospitalProject.Migrations
             modelBuilder.Entity("HospitalProject.Models.Department", b =>
                 {
                     b.Navigation("Doctors");
-                });
-
-            modelBuilder.Entity("HospitalProject.Models.Doctor", b =>
-                {
-                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("HospitalProject.Models.Patient", b =>

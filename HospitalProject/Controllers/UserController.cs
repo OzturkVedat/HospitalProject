@@ -31,6 +31,12 @@ namespace HospitalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel registerModel)
         {
+            var existingUser = await _userManager.FindByEmailAsync(registerModel.Email);
+            if (existingUser != null)
+            {
+                ModelState.AddModelError(string.Empty, "A user with the same email address already exists.");
+                return View(registerModel);
+            }
             if (ModelState.IsValid)
             {
                 var user = new Patient  
@@ -40,8 +46,7 @@ namespace HospitalProject.Controllers
                     Name = registerModel.Name,
                     Surname = registerModel.Surname,
                 };
-                var Password = registerModel.Password;  // for hashing the password
-                var result = await _userManager.CreateAsync(user, Password);    // create a user(patient)
+                var result = await _userManager.CreateAsync(user, registerModel.Password);    // create a user(patient)
 
                 if (result.Succeeded)
                 {
@@ -97,12 +102,9 @@ namespace HospitalProject.Controllers
                     }
                     else if (roles.Contains("Patient"))
                     {
-                        return RedirectToAction("PatientPanel");
+                        return RedirectToAction("PatientPanel","Patient");
                     }
-                    else if (roles.Contains("Doctor"))
-                    {
-                        return RedirectToAction("DoctorPanel");
-                    }
+                    
                     Console.WriteLine("User is not authenticated..");
                 }
                 else

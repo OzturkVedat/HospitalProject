@@ -1,9 +1,9 @@
 ﻿@{
-    Layout = "_AdminLayout.cshtml";
+    Layout = "_PatientLayout.cshtml";
 }
 
-<section id="section3" style="display: flex;">
-    @model List<Patient>
+<section id="section2" style="display: flex;">
+    @model Patient
     <table>
         <thead>
             <tr>
@@ -12,17 +12,13 @@
                 <!-- Add more columns as needed -->
             </tr>
         </thead>
-        <tbody>
-            @foreach (var patient in Model)
-            {
+        <tbody> 
                 <tr>
-                    <td>@patient.Name</td>
-                    <td>@patient.Surname</td>
+                    <td>@Model.Name</td>
+                    <td>@Model.Surname</td>
                     <!-- Add more cells as needed -->
                 </tr>
-            }
         </tbody>
     </table>
+
 </section>
-
-

@@ -186,6 +186,9 @@
   <data name="settings" xml:space="preserve">
     <value>Ayarlar</value>
   </data>
+  <data name="shift" xml:space="preserve">
+    <value>Çalışma Saatleri</value>
+  </data>
   <data name="signIn" xml:space="preserve">
     <value>Kayıt Ol</value>
   </data>
