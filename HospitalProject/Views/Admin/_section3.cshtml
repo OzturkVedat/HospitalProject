@@ -3,8 +3,26 @@
 }
 
 <section id="section3" style="display: flex;">
-    @model PatientViewModel
-    Patients
+    @model List<Patient>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var patient in Model)
+            {
+                <tr>
+                    <td>@patient.Name</td>
+                    <td>@patient.Surname</td>
+                    <!-- Add more cells as needed -->
+                </tr>
+            }
+        </tbody>
+    </table>
 </section>
 
 

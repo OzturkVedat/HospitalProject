@@ -46,15 +46,4 @@ namespace HospitalProject.Models
         public Department department { get; set; }
         public List<Department> Departments { get; set; }
     }
-    public class PatientViewModel
-    {
-        public Patient patient { get; set; }    
-        public List<Patient> Patients { get; set; }
-    }
-    public class AppointmentViewModel
-    {
-        public Appointment appointment { get; set; }    
-        public List<Appointment> Appointments { get; set; }
-
-    }
 }
