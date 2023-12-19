@@ -46,4 +46,11 @@ namespace HospitalProject.Models
         public Department department { get; set; }
         public List<Department> Departments { get; set; }
     }
+
+    public class PatientViewModel :Appointment         // for new appointments
+    {
+        public Patient Patient { get; set; }
+        public ICollection<Department> Departments { get; set; }    // available departments
+        public ICollection<Doctor> Doctors { get; set; }
+    }
 }

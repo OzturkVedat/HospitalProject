@@ -102,12 +102,9 @@ namespace HospitalProject.Controllers
                     }
                     else if (roles.Contains("Patient"))
                     {
-                        return RedirectToAction("PatientPanel");
+                        return RedirectToAction("PatientPanel","Patient");
                     }
-                    else if (roles.Contains("Doctor"))
-                    {
-                        return RedirectToAction("DoctorPanel");
-                    }
+                    
                     Console.WriteLine("User is not authenticated..");
                 }
                 else

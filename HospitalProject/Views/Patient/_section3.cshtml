@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "_PatientLayout.cshtml";
+}
+
+<section id="section2" style="display: flex;">
+    @model Patient
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody> 
+                <tr>
+                    <td>@Model.Name</td>
+                    <td>@Model.Surname</td>
+                    <!-- Add more cells as needed -->
+                </tr>
+        </tbody>
+    </table>
+
+</section>

@@ -27,6 +27,10 @@ namespace HospitalProject.Controllers
 
                 else
                 {
+                    var viewModel = new AdminDocViewModel { 
+                        Doctors = _context.Doctors.ToList(),
+                        doctor=new Doctor(),
+                    };
                     var doctors = _context.Doctors.ToList();  // LINQ
                     var viewModel = new AdminDocViewModel { Doctors = doctors };
                     return View(section, viewModel);
@@ -119,9 +123,8 @@ namespace HospitalProject.Controllers
             {
                 if (department.Doctors != null && department.Doctors.Any())
                 {
-                    // Set the Doctors property to null for associated doctors
-                    foreach (var doctor in department.Doctors)
-                        doctor.Department = null;
+                    //foreach (var doctor in department.Doctors)
+                    //    doctor.Department = null;
                 }
                 _context.Departments.Remove(department);
                 _context.SaveChanges();
@@ -136,23 +139,25 @@ namespace HospitalProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DoctorRegister(Doctor newDoctor)
+        public IActionResult RegisterDoctor(Doctor doctor)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     // Check if the department already exists in the database
-                    var doctorExist = _context.Doctors.Any(d => d.DoctorId == newDoctor.DoctorId);
+                    var doctorExist = _context.Doctors.Any(d => d.DoctorId == doctor.DoctorId);
+
                     if (doctorExist)
                     {
-                        var existingDoctor = _context.Doctors.Find(newDoctor.DoctorId);
-                        _context.Entry(existingDoctor).CurrentValues.SetValues(newDoctor);
+                        var existingDoctor = _context.Doctors.Find(doctor.DoctorId);
+                        _context.Entry(existingDoctor).CurrentValues.SetValues(doctor);
                         _context.Entry(existingDoctor).State = EntityState.Modified;
-                        Console.WriteLine("doctor edited");
+                        Console.WriteLine("doctor modified");
                     }
                     else
                     {
+                        _context.Doctors.Add(doctor);
                         var department = _context.Departments.FirstOrDefault(d => d.DepartmentId == newDoctor.DepartmentId);
                         if (department.DepartmentId != null)
                         {
@@ -167,6 +172,9 @@ namespace HospitalProject.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "An error occurred while saving the doctor. Please try again.");
                 }
+                return RedirectToAction("AdminPanel");
+            }
+            else
                 Console.WriteLine("VALID DOCTOR MODEL");
                 return RedirectToAction("AdminPanel");
             }
@@ -185,32 +193,22 @@ namespace HospitalProject.Controllers
 
             if (doctor == null)
             {
-                return NotFound();
+                AdminDocViewModel viewModel = new AdminDocViewModel();
+                viewModel.doctor = doctor;
+                return View("~/Views/Admin/_section1.cshtml", viewModel);
             }
-
-            // Perform any necessary logic for viewing
-            // ...
-
-            return View(doctor);
         }
 
+        [HttpPost]
         public IActionResult DoctorRemove(int id)
         {
-            // Retrieve the doctor from the database
             var doctor = _context.Doctors.Find(id);
-
             if (doctor == null)
-            {
                 return NotFound();
-            }
-
-            // Perform any necessary logic for removal
-            // ...
-
+            
             _context.Doctors.Remove(doctor);
             _context.SaveChanges();
-
-            return RedirectToAction(nameof(Index)); // Redirect to the list of doctors after removal
+            return RedirectToAction("AdminPanel"); 
         }
     }
 }
