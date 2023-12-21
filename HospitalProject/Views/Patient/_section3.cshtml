@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "_PatientLayout.cshtml";
+}
+
+<section id="section3" style="display: flex;">
+    @model Patient
+    <dl>
+        <dt>@_localization.GetKey("firstName").Value</dt>
+        <dd>@Model.Name</dd>
+
+        <dt>@_localization.GetKey("lastName").Value</dt>
+        <dd>@Model.Surname</dd>
+
+        <dt>@_localization.GetKey("email").Value</dt>
+        <dd>@Model.Email</dd>
+    </dl>
+
+</section>

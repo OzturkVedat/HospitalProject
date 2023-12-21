@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "_PatientLayout.cshtml";
+}
+@model ICollection<Appointment>
+<section id="section1" style="display: flex;">
+    @if (Model != null && Model.Any())
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>@_localization.GetKey("patient").Value</th>
+                    <th>@_localization.GetKey("department").Value</th>
+                    <th>@_localization.GetKey("date").Value</th>
+                    <th>@_localization.GetKey("doctor").Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var appointment in Model)
+                {
+                    <tr>
+                        <td>@appointment.Patient?.FullName</td>
+                        <td>@appointment.Department?.DepartmentName</td>
+                        <td>@appointment.Date</td>
+                        <td>@appointment.Doctor?.FullName</td>
+                        <td><button type="button" class="btn" data-toggle="modal" 
+                                    data-target="#removeModal-@appointment.Id">
+                                @_localization.GetKey("remove").Value
+                            </button>
+                        </td>
+                    </tr>
+                    <div class="modal" id="removeModal-@appointment.Id">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Remove Appointment</h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>@_localization.GetKey("appRemoveQ").Value</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form asp-controller="Patient" asp-action="CancelAppointment" method="post">
+                                        <input type="hidden" name="id" value="@appointment.Id" />
+                                        <button type="submit" class="btn btn-danger" onclick="submitRemoveForm(@appointment.Id)">@_localization.GetKey("remove").Value</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@_localization.GetKey("cancel").Value</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>@_localization.GetKey("noRecord").Value</p>
+    }
+</section>
+<script>
+    function submitRemoveForm(PatientId) {
+        document.getElementById('removeForm-' + Id).submit();
+    }
+</script>

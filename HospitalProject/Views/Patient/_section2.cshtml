@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "_PatientLayout.cshtml";
+}
+<section id="section2" style="display: flex; flex-direction: column; align-items: center;">
+    @model PatientViewModel
+
+    <h2 style="margin-bottom: 20px;">Create Appointment</h2>
+
+    @if (Model != null)
+    {
+        <form method="post" asp-action="CreateAppointment" asp-controller="Patient" style="width: 300px;">
+            <div class="form-group">
+                <label asp-for="Appointment.Date">Date:</label>
+                <input asp-for="Appointment.Date" type="datetime-local" class="form-control" />
+                <span asp-validation-for="Appointment.Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Appointment.DoctorId">Doctor:</label>
+                <select asp-for="Appointment.DoctorId" asp-items="@(new SelectList(Model.Doctors, "DoctorId", "FullName"))" class="form-control">
+                    <option value="">@_localization.GetKey("selectDoc").Value</option>
+                </select>
+                <span asp-validation-for="Appointment.DoctorId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Appointment.DepartmentId">Department:</label>
+                <select asp-for="Appointment.DepartmentId" asp-items="@(new SelectList(Model.Departments, "DepartmentId", "DepartmentName"))" class="form-control">
+                    <option value="">@_localization.GetKey("selectDep").Value</option>
+                </select>
+                <span asp-validation-for="Appointment.DepartmentId" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Appointment.PatientId" value="@Model.Patient.Id" />
+
+            <button type="submit" class="btn btn-primary">@_localization.GetKey("createApp").Value</button>
+        </form>
+    }
+</section>

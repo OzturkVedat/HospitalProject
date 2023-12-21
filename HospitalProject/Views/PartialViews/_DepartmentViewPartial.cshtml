@@ -1,0 +1,42 @@
+﻿@model Department
+<div>
+    <h4>Department Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-md-6">@_localization.GetKey("depId").Value</dt>
+        <dd class="col-md-6">@Model.DepartmentId</dd>
+                       
+        <dt class="col-md-6">@_localization.GetKey("depName").Value</dt>
+        <dd class="col-md-6">@Model.DepartmentName</dd>
+                       
+        <dt class="col-md-6">@_localization.GetKey("phone").Value</dt>
+        <dd class="col-md-6">@Model.PhoneNumber</dd>
+    </dl>
+
+    @if (Model.Doctors != null && Model.Doctors.Any())
+    {
+        <h5>@_localization.GetKey("docInDep").Value</h5>
+        <ul>
+            @foreach (var doctor in Model.Doctors)
+            {
+                <li>
+                    <dl>
+                        <dt>@_localization.GetKey("docId").Value</dt>
+                        <dd>@doctor.DoctorId</dd>
+
+                        <dt>@_localization.GetKey("firstName").Value</dt>
+                        <dd>@doctor.Name</dd>
+
+                        <dt>@_localization.GetKey("lastName").Value</dt>
+                        <dd>@doctor.Surname</dd>
+                                         
+                    </dl>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>@_localization.GetKey("noDocInDep").Value</p>
+    }
+</div>

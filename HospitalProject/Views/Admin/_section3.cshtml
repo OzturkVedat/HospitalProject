@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "_AdminLayout.cshtml";
+}
+
+<section id="section3" style="display: flex;">
+    @model List<Patient>
+    <table>
+        <thead>
+            <tr>
+                <th>@_localization.GetKey("firstName").Value</th>
+                <th>@_localization.GetKey("lastName").Value</th>
+                <th>@_localization.GetKey("email").Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var patient in Model)
+            {
+                <tr>
+                    <td>@patient.Name</td>
+                    <td>@patient.Surname</td>
+                    <td>@patient.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
+
+
