@@ -156,31 +156,24 @@ namespace HospitalProject.Migrations
 
             modelBuilder.Entity("HospitalProject.Models.Doctor", b =>
                 {
-                    b.Property<int>("DoctorId")
+                    b.Property<int?>("DoctorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DoctorId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("DoctorId"), 1L, 1);
 
                     b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
-
                     b.Property<DateTime?>("EndHour")
                         .HasColumnType("datetime2");
-                    b.Property<int?>("EndHour")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-
                     b.Property<DateTime?>("StartHour")
-       
-                    b.Property<int?>("StartHour")
-                        .HasColumnType("int");
-
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Surname")
                         .IsRequired()

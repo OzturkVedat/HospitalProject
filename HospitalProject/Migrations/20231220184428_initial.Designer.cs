@@ -12,11 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:HospitalProject/Migrations/20231220184428_initial.Designer.cs
     [Migration("20231220184428_initial")]
-========
-    [Migration("20231218143022_initial")]
->>>>>>>> polishing:HospitalProject/Migrations/20231218143022_initial.Designer.cs
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -162,24 +158,24 @@ namespace HospitalProject.Migrations
 
             modelBuilder.Entity("HospitalProject.Models.Doctor", b =>
                 {
-                    b.Property<int>("DoctorId")
+                    b.Property<int?>("DoctorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DoctorId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("DoctorId"), 1L, 1);
 
                     b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EndHour")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("EndHour")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StartHour")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("StartHour")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Surname")
                         .IsRequired()
