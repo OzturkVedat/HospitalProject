@@ -88,7 +88,7 @@
         <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Localization
+                    @_localization.GetKey("language").Value
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US" class="dropdown-item">
@@ -104,9 +104,10 @@
             <aside>
                 <nav>
                     <ul>
-                        <li><a href="@Url.Action("LoadSection", "Patient", new { section = "_section1" })">Appointments</a></li>
-                        <li><a href="@Url.Action("LoadSection", "Patient", new { section = "_section2" })">Create Appointment</a></li>
-                        <li><a href="@Url.Action("LoadSection", "Patient", new { section = "_section3" })">Settings</a></li>
+                        <li><a href="@Url.Action("Index", "Home")" style="margin-bottom:10%;">Home</a></li>
+                        <li><a href="@Url.Action("LoadSection", "Patient", new { section = "_section1" })">@_localization.GetKey("appointments").Value</a></li>
+                        <li><a href="@Url.Action("LoadSection", "Patient", new { section = "_section2" })">@_localization.GetKey("createApp").Value</a></li>
+                        <li><a href="@Url.Action("LoadSection", "Patient", new { section = "_section3" })">@_localization.GetKey("settings").Value</a></li>
                         </ul>
                 </nav>
             </aside>

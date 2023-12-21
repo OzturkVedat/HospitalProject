@@ -2,23 +2,17 @@
     Layout = "_PatientLayout.cshtml";
 }
 
-<section id="section2" style="display: flex;">
+<section id="section3" style="display: flex;">
     @model Patient
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Surname</th>
-                <!-- Add more columns as needed -->
-            </tr>
-        </thead>
-        <tbody> 
-                <tr>
-                    <td>@Model.Name</td>
-                    <td>@Model.Surname</td>
-                    <!-- Add more cells as needed -->
-                </tr>
-        </tbody>
-    </table>
+    <dl>
+        <dt>@_localization.GetKey("firstName").Value</dt>
+        <dd>@Model.Name</dd>
+
+        <dt>@_localization.GetKey("lastName").Value</dt>
+        <dd>@Model.Surname</dd>
+
+        <dt>@_localization.GetKey("email").Value</dt>
+        <dd>@Model.Email</dd>
+    </dl>
 
 </section>

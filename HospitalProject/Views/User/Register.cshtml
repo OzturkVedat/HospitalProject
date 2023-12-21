@@ -1,92 +1,81 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #ffffff; /* White background */
-            color: #333; /* Dark text color */
-            margin: 0;
-            padding: 0;
-        }
+﻿@{
+    ViewData["Title"] = "Register Page";
+}
 
-        form {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f4f4f4; /* Light gray background */
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #4CAF50; /* Green label color */
-        }
-
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #4CAF50; /* Green button color */
-            color: #fff; /* White text color */
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-            button:hover {
-                background-color: #45a049; /* Darker green on hover */
-            }
-
-    </style>
-
-    <meta name="viewport" content="width=device-width" />
-    <title>register</title>
-</head>
-<body>
-    @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
-    {
-        <div class="alert alert-success">
-            @ViewBag.SuccessMessage
-        </div>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #ffffff; /* White background */
+        color: #333; /* Dark text color */
+        margin: 0;
+        padding: 0;
     }
+
+    form {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f4f4f4; /* Light gray background */
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #4CAF50; /* Green label color */
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #4CAF50; /* Green button color */
+        color: #fff; /* White text color */
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+</style>
+
     @model HospitalProject.Models.RegisterViewModel
 
-    <form asp-controller="User" asp-action="Register" method="post" data-val="true" data-val-method="Validate">
+    <form asp-controller="User" asp-action="Register" method="post">
         <div>
-            <label asp-for="Name">Name</label>
+        <label asp-for="Name">@_localization.GetKey("firstName").Value</label>
             <input asp-for="Name" />
             <span asp-validation-for="Name"></span>
         </div>
 
         <div>
-            <label asp-for="Surname">Surname</label>
+        <label asp-for="Surname">@_localization.GetKey("lastName").Value</label>
             <input asp-for="Surname" />
             <span asp-validation-for="Surname"></span>
         </div>
 
 
         <div>
-            <label asp-for="Email">Email</label>
+        <label asp-for="Email">@_localization.GetKey("email").Value</label>
             <input asp-for="Email" />
             <span asp-validation-for="Email"></span>
         </div>
 
         <div>
-            <label asp-for="Password">Password</label>
+        <label asp-for="Password">@_localization.GetKey("password").Value</label>
             <input asp-for="Password" />
             <span asp-validation-for="Password"></span>
         </div>
-        <button type="submit">Submit</button>
+    <button type="submit">@_localization.GetKey("submit").Value</button>
     </form>
-</body>
-</html>

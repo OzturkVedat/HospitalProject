@@ -75,7 +75,7 @@
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Localization
+                                        @_localization.GetKey("language").Value
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US" class="dropdown-item">
@@ -145,7 +145,7 @@
                 <div class="col-md-6 col-lg-3 footer_col">
                     <div class="footer_detail">
                         <h4>
-                            About
+                            @_localization.GetKey("about").Value
                         </h4>
                         <p>
                             Beatae provident nobis mollitia magnam voluptatum, unde dicta facilis minima veniam corporis laudantium alias tenetur eveniet illum reprehenderit fugit a delectus officiis blanditiis ea.
@@ -159,19 +159,19 @@
                         </h4>
                         <div class="footer_links">
                             <a class="" href="index.html">
-                                Home
+                                @_localization.GetKey("home").Value
                             </a>
                             <a class="" href="about.html">
-                                About
+                                @_localization.GetKey("about").Value
                             </a>
                             <a class="active" href="departments.html">
-                                Departments
+                                @_localization.GetKey("departments").Value
                             </a>
                             <a class="" href="doctors.html">
-                                Doctors
+                                @_localization.GetKey("doctors").Value
                             </a>
                             <a class="" href="contact.html">
-                                Contact Us
+                                @_localization.GetKey("contact").Value
                             </a>
                         </div>
                     </div>

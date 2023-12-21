@@ -1,37 +1,38 @@
 ﻿@{
     Layout = "_PatientLayout.cshtml";
 }
-
-<section id="section1" style="display: flex;">
+<section id="section2" style="display: flex; flex-direction: column; align-items: center;">
     @model PatientViewModel
 
-    <h2>Create Appointment</h2>
+    <h2 style="margin-bottom: 20px;">Create Appointment</h2>
 
-    <form asp-controller="YourController" asp-action="CreateAppointment" method="post">
-        <div class="form-group">
-            <label asp-for="Date">Appointment Date:</label>
-            <input asp-for="Date" class="form-control" />
-            <span asp-validation-for="Date" class="text-danger"></span>
-        </div>
+    @if (Model != null)
+    {
+        <form method="post" asp-action="CreateAppointment" asp-controller="Patient" style="width: 300px;">
+            <div class="form-group">
+                <label asp-for="Appointment.Date">Date:</label>
+                <input asp-for="Appointment.Date" type="datetime-local" class="form-control" />
+                <span asp-validation-for="Appointment.Date" class="text-danger"></span>
+            </div>
 
-        <div class="form-group">
-            <label asp-for="DepartmentId">Select Department:</label>
-            <select asp-for="DepartmentId" asp-items="@(new SelectList(Model.Departments, "Id", "Name"))" class="form-control">
-                <option value="">-- Select Department --</option>
-            </select>
-            <span asp-validation-for="DepartmentId" class="text-danger"></span>
-        </div>
+            <div class="form-group">
+                <label asp-for="Appointment.DoctorId">Doctor:</label>
+                <select asp-for="Appointment.DoctorId" asp-items="@(new SelectList(Model.Doctors, "DoctorId", "FullName"))" class="form-control">
+                    <option value="">@_localization.GetKey("selectDoc").Value</option>
+                </select>
+                <span asp-validation-for="Appointment.DoctorId" class="text-danger"></span>
+            </div>
 
-        <div class="form-group">
-            <label asp-for="DoctorId">Select Doctor:</label>
-            <select asp-for="DoctorId" asp-items="@(new SelectList(Model.Doctors, "Id", "FullName"))" class="form-control">
-                <option value="">-- Select Doctor --</option>
-            </select>
-            <span asp-validation-for="DoctorId" class="text-danger"></span>
-        </div>
+            <div class="form-group">
+                <label asp-for="Appointment.DepartmentId">Department:</label>
+                <select asp-for="Appointment.DepartmentId" asp-items="@(new SelectList(Model.Departments, "DepartmentId", "DepartmentName"))" class="form-control">
+                    <option value="">@_localization.GetKey("selectDep").Value</option>
+                </select>
+                <span asp-validation-for="Appointment.DepartmentId" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Appointment.PatientId" value="@Model.Patient.Id" />
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Create Appointment</button>
-        </div>
-    </form>
+            <button type="submit" class="btn btn-primary">@_localization.GetKey("createApp").Value</button>
+        </form>
+    }
 </section>

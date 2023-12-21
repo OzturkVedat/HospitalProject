@@ -2,16 +2,12 @@
     ViewData["Title"] = "Departments Page";
 }
 
-
-
-<!-- department section -->
-
 <section class="department_section layout_padding">
     <div class="department_container">
         <div class="container ">
             <div class="heading_container heading_center">
                 <h2>
-                    Our Departments
+                    @_localization.GetKey("ourDep").Value
                 </h2>
                 <p>
                     Asperiores sunt consectetur impedit nulla molestiae delectus repellat laborum dolores doloremque accusantium
@@ -25,7 +21,7 @@
                         </div>
                         <div class="detail-box">
                             <h5>
-                                Cardiology
+                                @_localization.GetKey("cardio").Value
                             </h5>
                             <p>
                                 fact that a reader will be distracted by the readable page when looking at its layout.
@@ -40,7 +36,7 @@
                         </div>
                         <div class="detail-box">
                             <h5>
-                                Diagnosis
+                                @_localization.GetKey("diag").Value
                             </h5>
                             <p>
                                 fact that a reader will be distracted by the readable page when looking at its layout.
@@ -55,7 +51,7 @@
                         </div>
                         <div class="detail-box">
                             <h5>
-                                Surgery
+                                @_localization.GetKey("surgery").Value
                             </h5>
                             <p>
                                 fact that a reader will be distracted by the readable page when looking at its layout.
@@ -70,7 +66,7 @@
                         </div>
                         <div class="detail-box">
                             <h5>
-                                First Aid
+                                @_localization.GetKey("firstAid").Value
                             </h5>
                             <p>
                                 fact that a reader will be distracted by the readable page when looking at its layout.
@@ -81,7 +77,7 @@
             </div>
             <div class="btn-box">
                 <a href="">
-                    View All
+                    @_localization.GetKey("viewAll").Value
                 </a>
             </div>
         </div>

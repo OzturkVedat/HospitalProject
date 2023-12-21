@@ -1,19 +1,19 @@
 ﻿@model HospitalProject.Models.Doctor
 
 <div>
-    <h4>Doctor Details</h4>
+    <h4>@_localization.GetKey("docDetails").Value</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-3">Doctor ID</dt>
-        <dd class="col-sm-9">@Model.DoctorId</dd>
-
-        <dt class="col-sm-3">Doctor Name</dt>
-        <dd class="col-sm-9">@Model.Name</dd>
-
-        <dt class="col-sm-3">Doctor Surname</dt>
-        <dd class="col-sm-9">@Model.Surname</dd>
-
-        <dt class="col-sm-3">Doctor Working Hours</dt>
-        <dd class="col-sm-9">@Model.Shift</dd>
-    </dl>
+        <dt class="col-md-6">@_localization.GetKey("docId").Value</dt>
+        <dd class="col-md-6">@Model.DoctorId</dd>
+                       
+        <dt class="col-md-6">@_localization.GetKey("firstName").Value</dt>
+        <dd class="col-md-6">@Model.Name</dd>
+                       
+        <dt class="col-md-6">@_localization.GetKey("lastName").Value</dt>
+        <dd class="col-md-6">@Model.Surname</dd>
+                       
+        <dt class="col-md-6">@_localization.GetKey("shift").Value</dt>
+        <dd class="col-md-6">@Model.Shift</dd>
+    </dl>              
 </div>

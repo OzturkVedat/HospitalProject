@@ -27,9 +27,11 @@ namespace HospitalProject.Controllers
 
                 else
                 {
-                    var viewModel = new AdminDocViewModel { 
+                    var viewModel = new AdminDocViewModel
+                    {
                         Doctors = _context.Doctors.ToList(),
-                        doctor=new Doctor(),
+                        Departments = _context.Departments.ToList(),
+                        doctor = new Doctor(),
                     };
                     return View(section, viewModel);
                 }
@@ -40,12 +42,20 @@ namespace HospitalProject.Controllers
                     Console.WriteLine("DEPARTMENTS TABLE CONTAINS NULL");
                 else
                 {
-                    var departments = _context.Departments.ToList();
-                    var viewModel = new AdminDepViewModel { Departments = departments };
+                    var departmentsWithDoctors = _context.Departments
+                            .Include(d => d.Doctors) 
+                            .ToList();
+
+                    var viewModel = new AdminDepViewModel
+                    {
+                        Departments = departmentsWithDoctors,
+                        department = new Department()  
+                    };
+
                     return View(section, viewModel);
                 }
             }
-            else if(section == "_section3")
+            else if (section == "_section3")
             {
                 if (_context.Patients.Any(p => p.Id == null || p.UserName == null))
                     Console.WriteLine("PATIENTS TABLE CONTAINS NULL");
@@ -57,11 +67,15 @@ namespace HospitalProject.Controllers
             }
             else if (section == "_section4")
             {
-                if(_context.Appointments.Any(a => a.Id == null || a.Date == null))
+                if (_context.Appointments.Any(a => a.Id == null || a.Date == null))
                     Console.WriteLine("APPOINTMENTS TABLE CONTAINS NULL");
                 else
                 {
-                    var appointments = _context.Appointments.ToList();
+                    var appointments = _context.Appointments
+                    .Include(a => a.Doctor)      // Explicitly include the Doctor related entity
+                    .Include(a => a.Department)  // Explicitly include the Department related entity
+                    .ToList();
+
                     return View(section, appointments);
                 }
             }
@@ -79,7 +93,6 @@ namespace HospitalProject.Controllers
             {
                 try
                 {
-                    // Check if the department already exists in the database
                     var departmentExist = _context.Departments.Any(d => d.DepartmentId == department.DepartmentId);
 
                     if (departmentExist)
@@ -104,9 +117,16 @@ namespace HospitalProject.Controllers
             }
             else
             {
-                AdminDepViewModel viewModel = new AdminDepViewModel();
-                viewModel.department = department;
-                return View("~/Views/Admin/_section2.cshtml", viewModel);
+                var departmentsWithDoctors = _context.Departments
+                            .Include(d => d.Doctors)
+                            .ToList();
+
+                var viewModel = new AdminDepViewModel
+                {
+                    Departments = departmentsWithDoctors,
+                    department = department
+                };
+                return View("_section2", viewModel);
             }
         }
 
@@ -121,8 +141,11 @@ namespace HospitalProject.Controllers
             {
                 if (department.Doctors != null && department.Doctors.Any())
                 {
-                    //foreach (var doctor in department.Doctors)
-                    //    doctor.Department = null;
+                    var doctorsToDelete = _context.Doctors.Where(d => d.DepartmentId == id);
+                    _context.Doctors.RemoveRange(doctorsToDelete);
+
+                    department.Doctors = null;
+                    _context.SaveChanges();
                 }
                 _context.Departments.Remove(department);
                 _context.SaveChanges();
@@ -145,7 +168,7 @@ namespace HospitalProject.Controllers
                 {
                     // Check if the department already exists in the database
                     var doctorExist = _context.Doctors.Any(d => d.DoctorId == doctor.DoctorId);
-
+                    Department department = _context.Departments.Find(doctor.DepartmentId);
                     if (doctorExist)
                     {
                         var existingDoctor = _context.Doctors.Find(doctor.DoctorId);
@@ -156,6 +179,7 @@ namespace HospitalProject.Controllers
                     else
                     {
                         _context.Doctors.Add(doctor);
+                        department.Doctors.Add(doctor);
                         Console.WriteLine("doctor added");
                     }
                     _context.SaveChanges();
@@ -170,7 +194,7 @@ namespace HospitalProject.Controllers
             {
                 AdminDocViewModel viewModel = new AdminDocViewModel();
                 viewModel.doctor = doctor;
-                return View("~/Views/Admin/_section1.cshtml", viewModel);
+                return View("_section1", viewModel);
             }
         }
 
@@ -180,10 +204,19 @@ namespace HospitalProject.Controllers
             var doctor = _context.Doctors.Find(id);
             if (doctor == null)
                 return NotFound();
-            
+
+            var appointmentsToDelete = _context.Appointments.Where(a => a.DoctorId == id);
+            _context.Appointments.RemoveRange(appointmentsToDelete);
+
+            doctor.DepartmentId = null;
+
+            _context.SaveChanges();
+
             _context.Doctors.Remove(doctor);
             _context.SaveChanges();
-            return RedirectToAction("AdminPanel"); 
+
+            return RedirectToAction("AdminPanel");
         }
+
     }
 }

@@ -2,14 +2,12 @@
     ViewData["Title"] = "Home Page";
 }
 
-<!-- department section -->
-
 <section class="department_section layout_padding">
     <div class="department_container">
         <div class="container ">
             <div class="heading_container heading_center">
                 <h2>
-                    Our Departments
+                    @_localization.GetKey("ourDep").Value
                 </h2>
                 <p>
                     Asperiores sunt consectetur impedit nulla molestiae delectus repellat laborum dolores doloremque accusantium
@@ -23,7 +21,7 @@
                         </div>
                         <div class="detail-box">
                             <h5>
-                                Cardiology
+                                @_localization.GetKey("cardio").Value
                             </h5>
                             <p>
                                 fact that a reader will be distracted by the readable page when looking at its layout.
@@ -38,7 +36,7 @@
                         </div>
                         <div class="detail-box">
                             <h5>
-                                Diagnosis
+                                @_localization.GetKey("diag").Value
                             </h5>
                             <p>
                                 fact that a reader will be distracted by the readable page when looking at its layout.
@@ -53,7 +51,7 @@
                         </div>
                         <div class="detail-box">
                             <h5>
-                                Surgery
+                                @_localization.GetKey("surgery").Value
                             </h5>
                             <p>
                                 fact that a reader will be distracted by the readable page when looking at its layout.
@@ -68,7 +66,7 @@
                         </div>
                         <div class="detail-box">
                             <h5>
-                                First Aid
+                                @_localization.GetKey("firstAid").Value
                             </h5>
                             <p>
                                 fact that a reader will be distracted by the readable page when looking at its layout.
@@ -79,15 +77,12 @@
             </div>
             <div class="btn-box">
                 <a href="">
-                    View All
+                    @_localization.GetKey("viewAll").Value
                 </a>
             </div>
         </div>
     </div>
 </section>
-
-<!-- end department section -->
-<!-- about section -->
 
 <section class="about_section layout_margin-bottom">
     <div class="container  ">
@@ -101,7 +96,7 @@
                 <div class="detail-box">
                     <div class="heading_container">
                         <h2>
-                            About <span>Us</span>
+                            @_localization.GetKey("aboutUs").Value
                         </h2>
                     </div>
                     <p>
@@ -111,7 +106,7 @@
                         the middle of text. All
                     </p>
                     <a href="">
-                        Read More
+                        @_localization.GetKey("readMore").Value
                     </a>
                 </div>
             </div>
@@ -119,14 +114,11 @@
     </div>
 </section>
 
-<!-- end about section -->
-<!-- doctor section -->
-
 <section class="doctor_section layout_padding">
     <div class="container">
         <div class="heading_container heading_center">
             <h2>
-                Our Doctors
+                @_localization.GetKey("ourDoc").Value
             </h2>
             <p class="col-md-10 mx-auto px-0">
                 Incilint sapiente illo quo praesentium officiis laudantium nostrum, ad adipisci cupiditate sit, quisquam aliquid. Officiis laudantium fuga ad voluptas aspernatur error fugiat quos facilis saepe quas fugit, beatae id quisquam.
@@ -223,7 +215,7 @@
         </div>
         <div class="btn-box">
             <a href="">
-                View All
+                @_localization.GetKey("viewAll").Value
             </a>
         </div>
     </div>
@@ -235,7 +227,7 @@
     <div class="container">
         <div class="heading_container">
             <h2>
-                Get In Touch
+                @_localization.GetKey("touch").Value
             </h2>
         </div>
         <div class="row">
@@ -285,7 +277,7 @@
     <div class="container">
         <div class="heading_container heading_center ">
             <h2>
-                Testimonial
+                @_localization.GetKey("testimonial").Value
             </h2>
         </div>
         <div id="carouselExample2Controls" class="carousel slide" data-ride="carousel">
@@ -370,6 +362,3 @@
         </div>
     </div>
 </section>
-
-<!-- end client section -->
-<!-- footer section -->

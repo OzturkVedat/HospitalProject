@@ -12,8 +12,7 @@
             <div class="col-md-6">
                 <div class="form_container contact-form">
                     @model HospitalProject.Models.LoginViewModel
-
-                    <form asp-controller="User" asp-action="Login" method="post" data-val="true" data-val-method="Validate">
+                    <form asp-controller="User" asp-action="Login" method="post">
                         <div class="form-row">
                             <div class="col-lg-6">
                                 <div>
@@ -40,7 +39,7 @@
                         </div>
                         <div class="btn_box">
                             <button type="submit">
-                                LOG IN
+                                @_localization.GetKey("login").Value
                             </button>
                         </div>
                         <div class="btn_box">
@@ -48,9 +47,19 @@
                                     onmouseover="this.style.color='#ffffff'; this.style.backgroundColor='#1fab89'"
                                     onmouseout="this.style.color='#1fab89'; this.style.backgroundColor='#ffffff'"
                                     onclick="signIn()">
-                                SIGN UP
+                                @_localization.GetKey("signUp").Value
                             </button>
                         </div>
+                        <!-- Add this within the <form> tag -->
+                        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                        {
+                            <script>
+                                $(document).ready(function () {
+                                    $('#errorMessage').text('@Html.Raw(ViewBag.ErrorMessage)');
+                                    $('#errorModal').modal('show');
+                                });
+                            </script>
+                        }
                     </form>
 
                     <script>
