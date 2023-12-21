@@ -4,6 +4,7 @@ using HospitalProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231218143022_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,11 +105,11 @@ namespace HospitalProject.Migrations
 
             modelBuilder.Entity("HospitalProject.Models.Appointment", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -165,9 +167,6 @@ namespace HospitalProject.Migrations
                     b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
-
-                    b.Property<DateTime?>("EndHour")
-                        .HasColumnType("datetime2");
                     b.Property<int?>("EndHour")
                         .HasColumnType("int");
 
@@ -175,12 +174,8 @@ namespace HospitalProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-
-                    b.Property<DateTime?>("StartHour")
-       
                     b.Property<int?>("StartHour")
                         .HasColumnType("int");
-
 
                     b.Property<string>("Surname")
                         .IsRequired()
@@ -336,12 +331,12 @@ namespace HospitalProject.Migrations
             modelBuilder.Entity("HospitalProject.Models.Appointment", b =>
                 {
                     b.HasOne("HospitalProject.Models.Department", "Department")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HospitalProject.Models.Doctor", "Doctor")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -360,12 +355,10 @@ namespace HospitalProject.Migrations
 
             modelBuilder.Entity("HospitalProject.Models.Doctor", b =>
                 {
-                    b.HasOne("HospitalProject.Models.Department", "Department")
+                    b.HasOne("HospitalProject.Models.Department", null)
                         .WithMany("Doctors")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -421,14 +414,7 @@ namespace HospitalProject.Migrations
 
             modelBuilder.Entity("HospitalProject.Models.Department", b =>
                 {
-                    b.Navigation("Appointments");
-
                     b.Navigation("Doctors");
-                });
-
-            modelBuilder.Entity("HospitalProject.Models.Doctor", b =>
-                {
-                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("HospitalProject.Models.Patient", b =>
