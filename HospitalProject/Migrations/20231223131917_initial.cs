@@ -181,6 +181,7 @@ namespace HospitalProject.Migrations
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartHour = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EndHour = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Shift = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DepartmentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

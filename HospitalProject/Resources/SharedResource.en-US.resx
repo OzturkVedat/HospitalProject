@@ -117,8 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="about" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="aboutUs" xml:space="preserve">
+    <value>About Us</value>
+  </data>
   <data name="appointment" xml:space="preserve">
     <value>Appointment</value>
+  </data>
+  <data name="appointments" xml:space="preserve">
+    <value>Appointments</value>
+  </data>
+  <data name="appRemoveQ" xml:space="preserve">
+    <value>Are you sure you want to remove this appointment?</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="cardio" xml:space="preserve">
+    <value>Cardiology</value>
+  </data>
+  <data name="contact" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="createAccount" xml:space="preserve">
+    <value>Create Your Account</value>
+  </data>
+  <data name="createApp" xml:space="preserve">
+    <value>Create Appointment</value>
+  </data>
+  <data name="date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="department" xml:space="preserve">
+    <value>Department</value>
   </data>
   <data name="departments" xml:space="preserve">
     <value>Departments</value>
@@ -132,26 +165,50 @@
   <data name="depRegButton" xml:space="preserve">
     <value>Add Department</value>
   </data>
+  <data name="depRemoveQ" xml:space="preserve">
+    <value>Are you sure you want to remove this department?</value>
+  </data>
+  <data name="diag" xml:space="preserve">
+    <value>Diagnosis</value>
+  </data>
   <data name="docDep" xml:space="preserve">
     <value>Department</value>
   </data>
   <data name="docDepSelect" xml:space="preserve">
     <value>Select Department</value>
   </data>
+  <data name="docDetails" xml:space="preserve">
+    <value>Doctor Details</value>
+  </data>
   <data name="docId" xml:space="preserve">
     <value>Doctor ID</value>
+  </data>
+  <data name="docInDep" xml:space="preserve">
+    <value>Doctors in this Department</value>
   </data>
   <data name="docRegButton" xml:space="preserve">
     <value>Add Doctor</value>
   </data>
+  <data name="docRemoveQ" xml:space="preserve">
+    <value>Are you sure you want to remove this doctor?</value>
+  </data>
+  <data name="doctor" xml:space="preserve">
+    <value>Doctor</value>
+  </data>
   <data name="doctors" xml:space="preserve">
     <value>Doctors</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="email" xml:space="preserve">
     <value>E-mail</value>
   </data>
   <data name="events" xml:space="preserve">
     <value>Events</value>
+  </data>
+  <data name="firstAid" xml:space="preserve">
+    <value>First Aid</value>
   </data>
   <data name="firstName" xml:space="preserve">
     <value>First Name</value>
@@ -162,14 +219,41 @@
   <data name="home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="language" xml:space="preserve">
+    <value>Language</value>
+  </data>
   <data name="lastName" xml:space="preserve">
     <value>Last Name</value>
+  </data>
+  <data name="links" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="login" xml:space="preserve">
+    <value>Log In</value>
+  </data>
+  <data name="newsletter" xml:space="preserve">
+    <value>Newsletter</value>
+  </data>
+  <data name="noDocInDep" xml:space="preserve">
+    <value>No doctors in this department.</value>
   </data>
   <data name="noRecord" xml:space="preserve">
     <value>No record found..</value>
   </data>
+  <data name="ourDep" xml:space="preserve">
+    <value>Our Departments</value>
+  </data>
+  <data name="ourDoc" xml:space="preserve">
+    <value>Our Doctors</value>
+  </data>
   <data name="password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="patient" xml:space="preserve">
+    <value>Patient</value>
   </data>
   <data name="patients" xml:space="preserve">
     <value>Patients</value>
@@ -177,19 +261,76 @@
   <data name="phone" xml:space="preserve">
     <value>Phone Number</value>
   </data>
+  <data name="reachAt" xml:space="preserve">
+    <value>Reach At..</value>
+  </data>
+  <data name="readMore" xml:space="preserve">
+    <value>Read More</value>
+  </data>
   <data name="register" xml:space="preserve">
     <value>Register</value>
   </data>
   <data name="rememberMe" xml:space="preserve">
     <value>Remember Me</value>
   </data>
+  <data name="remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="removeDep" xml:space="preserve">
+    <value>Remove Department</value>
+  </data>
+  <data name="selectDep" xml:space="preserve">
+    <value>Select Department</value>
+  </data>
+  <data name="selectDoc" xml:space="preserve">
+    <value>Select Doctor</value>
+  </data>
   <data name="settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>User</value>
   </data>
   <data name="shift" xml:space="preserve">
     <value>Working Hours</value>
   </data>
   <data name="signIn" xml:space="preserve">
     <value>Sign In</value>
+  </data>
+  <data name="signUp" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="subscribe" xml:space="preserve">
+    <value>Subscribe</value>
+  </data>
+  <data name="surgery" xml:space="preserve">
+    <value>Surgery</value>
+  </data>
+  <data name="testimonial" xml:space="preserve">
+    <value>Testimonial</value>
+  </data>
+  <data name="touch" xml:space="preserve">
+    <value>Get In Touch</value>
+  </data>
+  <data name="userDetails" xml:space="preserve">
+    <value>User Details</value>
+  </data>
+  <data name="view" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="viewAll" xml:space="preserve">
+    <value>View All</value>
+  </data>
+  <data name="viewDep" xml:space="preserve">
+    <value>View Department</value>
+  </data>
+  <data name="yourAppointments" xml:space="preserve">
+    <value>Your Appointments</value>
+  </data>
+  <data name="yourEmail" xml:space="preserve">
+    <value>Your e-mail</value>
+  </data>
+  <data name="yourPassword" xml:space="preserve">
+    <value>Your password</value>
   </data>
 </root>

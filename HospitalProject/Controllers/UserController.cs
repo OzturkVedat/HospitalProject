@@ -13,11 +13,14 @@ namespace HospitalProject.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
-        public UserController(UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager, ApplicationDbContext context){
+        private readonly ILogger<UserController> _logger;
+        public UserController(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager,
+            ApplicationDbContext context, ILogger<UserController> logger)
+        {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -25,54 +28,62 @@ namespace HospitalProject.Controllers
         {
             return View();
         }
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel registerModel)
         {
-            var existingUser = await _userManager.FindByEmailAsync(registerModel.Email);
-            if (existingUser != null)
+            try
             {
-                ModelState.AddModelError(string.Empty, "A user with the same email address already exists.");
-                return View(registerModel);
-            }
-            if (ModelState.IsValid)
-            {
-                var user = new Patient  
-                {             
-                    UserName = registerModel.Email,
-                    Email = registerModel.Email,
-                    Name = registerModel.Name,
-                    Surname = registerModel.Surname,
-                };
-                var result = await _userManager.CreateAsync(user, registerModel.Password);    // create a user(patient)
-
-                if (result.Succeeded)
+                var existingUser = await _userManager.FindByEmailAsync(registerModel.Email);
+                if (existingUser != null)
                 {
-                    await _userManager.AddToRoleAsync(user, "Patient"); // give role(Authorization)
-                    Console.WriteLine("REGISTRATION SUCCESSFUL");
-                    // Sign in the user
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-
-                    // Creating a related patient record
-                    _context.Patients.Add(user);
-                    await _context.SaveChangesAsync();
-                    Console.WriteLine("User/patient saved to db");
-                    return RedirectToAction("Login"); // redirect to login page
+                    ModelState.AddModelError(string.Empty, "A user with the same email address already exists.");
+                    return View(registerModel);
                 }
-                else
+
+                if (ModelState.IsValid)
                 {
-                    foreach (var error in result.Errors)
+                    var user = new Patient
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
+                        UserName = registerModel.Email,
+                        Email = registerModel.Email,
+                        Name = registerModel.Name,
+                        Surname = registerModel.Surname,
+                    };
+
+                    var result = await _userManager.CreateAsync(user, registerModel.Password);
+
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Patient");
+                        _context.Patients.Add(user);
+                        await _context.SaveChangesAsync();
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        return RedirectToAction("Login");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            _logger.LogError(error.Description);
+                        }
+
+                        ModelState.AddModelError(string.Empty, "An error occurred during registration. Please try again.");
                     }
                 }
             }
-            return View(registerModel);     // if there's errors, return to view with error message
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An unexpected error occurred during registration.");
+
+                ModelState.AddModelError(string.Empty, "An error occurred during registration. Please try again.");
+            }
+            return View(registerModel);
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
@@ -98,13 +109,12 @@ namespace HospitalProject.Controllers
 
                     if (roles.Contains("Admin"))        // Authentication
                     {
-                        return RedirectToAction("AdminPanel");
+                        return RedirectToAction("AdminPanel","Admin");
                     }
                     else if (roles.Contains("Patient"))
                     {
                         return RedirectToAction("PatientPanel","Patient");
                     }
-                    
                     Console.WriteLine("User is not authenticated..");
                 }
                 else
@@ -112,25 +122,7 @@ namespace HospitalProject.Controllers
                     ModelState.AddModelError(string.Empty, "Invalid login attempt. Please check your username and password.");
                 }
             }
-
-            // If ModelState is not valid or there are errors, return to the login view with errors
             return View(loginModel);
-        }
-
-        [Authorize(Roles = "Admin")]
-        public IActionResult AdminPanel()
-        {
-            return RedirectToAction("AdminPanel", "Admin");
-        }
-        [Authorize(Roles = "Patient")]
-        public IActionResult PatientPanel()
-        {
-            return View();
-        }
-        [Authorize(Roles = "Doctor")]
-        public IActionResult DoctorPanel()
-        {
-            return View();
         }
     }
 }

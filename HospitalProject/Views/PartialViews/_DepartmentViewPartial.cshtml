@@ -1,33 +1,42 @@
-﻿@model HospitalProject.Models.Department
-
+﻿@model Department
 <div>
     <h4>Department Details</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-3">Department ID</dt>
-        <dd class="col-sm-9">@Model.DepartmentId</dd>
-
-        <dt class="col-sm-3">Department Name</dt>
-        <dd class="col-sm-9">@Model.DepartmentName</dd>
-
-        <dt class="col-sm-3">Phone Number</dt>
-        <dd class="col-sm-9">@Model.PhoneNumber</dd>
+        <dt class="col-md-6">@_localization.GetKey("depId").Value</dt>
+        <dd class="col-md-6">@Model.DepartmentId</dd>
+                       
+        <dt class="col-md-6">@_localization.GetKey("depName").Value</dt>
+        <dd class="col-md-6">@Model.DepartmentName</dd>
+                       
+        <dt class="col-md-6">@_localization.GetKey("phone").Value</dt>
+        <dd class="col-md-6">@Model.PhoneNumber</dd>
     </dl>
 
     @if (Model.Doctors != null && Model.Doctors.Any())
     {
-        <h5>Doctors in this Department</h5>
+        <h5>@_localization.GetKey("docInDep").Value</h5>
         <ul>
             @foreach (var doctor in Model.Doctors)
             {
-                <li>@doctor.DoctorId</li>
-                <li>@doctor.Name</li>
-                <li>@doctor.Surname</li>
+                <li>
+                    <dl>
+                        <dt>@_localization.GetKey("docId").Value</dt>
+                        <dd>@doctor.DoctorId</dd>
+
+                        <dt>@_localization.GetKey("firstName").Value</dt>
+                        <dd>@doctor.Name</dd>
+
+                        <dt>@_localization.GetKey("lastName").Value</dt>
+                        <dd>@doctor.Surname</dd>
+                                         
+                    </dl>
+                </li>
             }
         </ul>
     }
     else
     {
-        <p>No doctors in this department.</p>
+        <p>@_localization.GetKey("noDocInDep").Value</p>
     }
 </div>

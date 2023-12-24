@@ -3,15 +3,14 @@
 }
 <style>
     .custom-modal-content {
-        width: 80%; /* Adjust the width as needed */
-        margin: auto;
+        width: 150%;
+        margin: 10%;
     }
 </style>
+@model AdminDepViewModel
 
-<section id="section2" style="display: flex;">
-    @model AdminDepViewModel
-    <!-- Button to open the modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DepartmentRegistrationModal">
+<section id="section2" style="display: flex; flex-direction: column; align-items: flex-end;">
+    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#DepartmentRegistrationModal">
         @_localization.GetKey("depRegButton").Value
     </button>
     <div class="modal fade" id="DepartmentRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="DepartmentRegistrationModalLabel" aria-hidden="true">
@@ -53,7 +52,7 @@
             </tr>
         </thead>
         <tbody>
-            @if (Model != null && Model.Departments != null && Model.Departments.Count > 0)
+            @if (Model.Departments != null && Model.Departments.Count > 0)
             {
                 @foreach (var department in Model.Departments)
                 {
@@ -62,20 +61,20 @@
                         <td>@department.DepartmentId</td>
                         <td>@department.PhoneNumber</td>
                         <td>
-                            <button type="button" onclick="editDepartment(@department.DepartmentId, '@department.DepartmentName', '@department.PhoneNumber')">Edit</button>
-                            <button type="button" data-toggle="modal" data-target="#viewModal-@department.DepartmentId">View</button>
-                            <button type="button" data-toggle="modal" data-target="#removeModal-@department.DepartmentId">Remove</button>
+                            <button type="button" class="btn" onclick="editDepartment(@department.DepartmentId, '@department.DepartmentName', '@department.PhoneNumber')">Edit</button>
+                            <button type="button" class="btn" data-toggle="modal" data-target="#viewModal-@department.DepartmentId">View</button>
+                            <button type="button" class="btn" data-toggle="modal" data-target="#removeModal-@department.DepartmentId">Remove</button>
                         </td>
                     </tr>
                     <!-- View Modal -->
                     <div class="modal" id="viewModal-@department.DepartmentId">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog ">
                             <div class="modal-content custom-modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">View Department</h5>
+                                    <h5 class="modal-title">@_localization.GetKey("viewDep").Value</h5>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body ">
                                     @{
                                         await Html.RenderPartialAsync("~/Views/PartialViews/_DepartmentViewPartial.cshtml",
                                         Model.Departments.FirstOrDefault(d => d.DepartmentId == department.DepartmentId));
@@ -90,17 +89,18 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Remove Department</h5>
+                                    <h5 class="modal-title">@_localization.GetKey("removeDep").Value</h5>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Are you sure you want to remove this department?</p>
+
+                                    <p>@_localization.GetKey("depRemoveQ").Value</p>
                                 </div>
                                 <div class="modal-footer">
                                     <form asp-controller="Admin" asp-action="DepartmentRemove" method="post">
                                         <input type="hidden" name="id" value="@department.DepartmentId" />
-                                        <button type="submit" class="btn btn-danger" onclick="submitRemoveForm(@department.DepartmentId)">Remove</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger" onclick="submitRemoveForm(@department.DepartmentId)">@_localization.GetKey("remove").Value</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@_localization.GetKey("cancel").Value</button>
                                     </form>
                                 </div>
                             </div>

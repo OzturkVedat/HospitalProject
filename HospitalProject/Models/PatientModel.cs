@@ -6,7 +6,7 @@ namespace HospitalProject.Models
 
     public class Patient : ApplicationUser   // inherits IdentityUser
     {
-        public ICollection<Appointment>? Appointments { get; set; }
+        public ICollection<Appointment>? Appointments { get; set; } = new List<Appointment>();
     }
 
     

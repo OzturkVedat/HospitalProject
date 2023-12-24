@@ -7,9 +7,9 @@
     <table>
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Surname</th>
-                <!-- Add more columns as needed -->
+                <th>@_localization.GetKey("firstName").Value</th>
+                <th>@_localization.GetKey("lastName").Value</th>
+                <th>@_localization.GetKey("email").Value</th>
             </tr>
         </thead>
         <tbody>
@@ -18,7 +18,7 @@
                 <tr>
                     <td>@patient.Name</td>
                     <td>@patient.Surname</td>
-                    <!-- Add more cells as needed -->
+                    <td>@patient.Email</td>
                 </tr>
             }
         </tbody>

@@ -117,8 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="about" xml:space="preserve">
+    <value>Hakkında</value>
+  </data>
+  <data name="aboutUs" xml:space="preserve">
+    <value>Hakkımızda</value>
+  </data>
   <data name="appointment" xml:space="preserve">
     <value>Randevu</value>
+  </data>
+  <data name="appointments" xml:space="preserve">
+    <value>Randevular</value>
+  </data>
+  <data name="appRemoveQ" xml:space="preserve">
+    <value>Bu randevuyu iptal etmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Vazgeç</value>
+  </data>
+  <data name="cardio" xml:space="preserve">
+    <value>Kardiyoloji</value>
+  </data>
+  <data name="contact" xml:space="preserve">
+    <value>Bizimle İletişime Geç</value>
+  </data>
+  <data name="createAccount" xml:space="preserve">
+    <value>Hesap Oluşturun</value>
+  </data>
+  <data name="createApp" xml:space="preserve">
+    <value>Randevu Oluştur</value>
+  </data>
+  <data name="date" xml:space="preserve">
+    <value>Tarih</value>
+  </data>
+  <data name="department" xml:space="preserve">
+    <value>Klinik</value>
   </data>
   <data name="departments" xml:space="preserve">
     <value>Tıbbi Birimler</value>
@@ -132,26 +165,50 @@
   <data name="depRegButton" xml:space="preserve">
     <value>Tıbbi Birim Ekle</value>
   </data>
+  <data name="depRemoveQ" xml:space="preserve">
+    <value>Bu birimi silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="diag" xml:space="preserve">
+    <value>Tanı</value>
+  </data>
   <data name="docDep" xml:space="preserve">
     <value>Birimi</value>
   </data>
   <data name="docDepSelect" xml:space="preserve">
     <value>Birim seçiniz</value>
   </data>
+  <data name="docDetails" xml:space="preserve">
+    <value>Hekim Bilgileri</value>
+  </data>
   <data name="docId" xml:space="preserve">
     <value>Hekim ID</value>
+  </data>
+  <data name="docInDep" xml:space="preserve">
+    <value>Bu Klinikteki Doktorklar</value>
   </data>
   <data name="docRegButton" xml:space="preserve">
     <value>Hekim Ekle</value>
   </data>
+  <data name="docRemoveQ" xml:space="preserve">
+    <value>Bu doktoru silmek istediğinizden emin misiniz?</value>
+  </data>
+  <data name="doctor" xml:space="preserve">
+    <value>Hekim</value>
+  </data>
   <data name="doctors" xml:space="preserve">
     <value>Hekimler</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Düzenle</value>
   </data>
   <data name="email" xml:space="preserve">
     <value>E-posta</value>
   </data>
   <data name="events" xml:space="preserve">
     <value>Etkileşim</value>
+  </data>
+  <data name="firstAid" xml:space="preserve">
+    <value>İlk Yardım</value>
   </data>
   <data name="firstName" xml:space="preserve">
     <value>Ad</value>
@@ -162,14 +219,41 @@
   <data name="home" xml:space="preserve">
     <value>Ana Sayfa</value>
   </data>
+  <data name="language" xml:space="preserve">
+    <value>Dil</value>
+  </data>
   <data name="lastName" xml:space="preserve">
     <value>Soyad</value>
+  </data>
+  <data name="links" xml:space="preserve">
+    <value>Bağlantılar</value>
+  </data>
+  <data name="location" xml:space="preserve">
+    <value>Konum</value>
+  </data>
+  <data name="login" xml:space="preserve">
+    <value>Giriş Yap</value>
+  </data>
+  <data name="newsletter" xml:space="preserve">
+    <value>Haberler</value>
+  </data>
+  <data name="noDocInDep" xml:space="preserve">
+    <value>Bu klinikte doktor kaydı bulunmamaktadır.</value>
   </data>
   <data name="noRecord" xml:space="preserve">
     <value>Kayıt bulunamadı..</value>
   </data>
+  <data name="ourDep" xml:space="preserve">
+    <value>Birimlerimiz</value>
+  </data>
+  <data name="ourDoc" xml:space="preserve">
+    <value>Doktorlarımız</value>
+  </data>
   <data name="password" xml:space="preserve">
     <value>Şifreniz</value>
+  </data>
+  <data name="patient" xml:space="preserve">
+    <value>Hasta</value>
   </data>
   <data name="patients" xml:space="preserve">
     <value>Hastalar</value>
@@ -177,19 +261,76 @@
   <data name="phone" xml:space="preserve">
     <value>Telefon Numarası</value>
   </data>
+  <data name="reachAt" xml:space="preserve">
+    <value>İletişim</value>
+  </data>
+  <data name="readMore" xml:space="preserve">
+    <value>Devamını Oku</value>
+  </data>
   <data name="register" xml:space="preserve">
     <value>Kaydet</value>
   </data>
   <data name="rememberMe" xml:space="preserve">
     <value>Beni hatırla</value>
   </data>
+  <data name="remove" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="removeDep" xml:space="preserve">
+    <value>Birimi Sil</value>
+  </data>
+  <data name="selectDep" xml:space="preserve">
+    <value>Klinik Seç</value>
+  </data>
+  <data name="selectDoc" xml:space="preserve">
+    <value>Hekim Seç</value>
+  </data>
   <data name="settings" xml:space="preserve">
-    <value>Ayarlar</value>
+    <value>Kullanıcı</value>
   </data>
   <data name="shift" xml:space="preserve">
     <value>Çalışma Saatleri</value>
   </data>
   <data name="signIn" xml:space="preserve">
     <value>Kayıt Ol</value>
+  </data>
+  <data name="signUp" xml:space="preserve">
+    <value>Kaydol</value>
+  </data>
+  <data name="submit" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="subscribe" xml:space="preserve">
+    <value>Abone Ol</value>
+  </data>
+  <data name="surgery" xml:space="preserve">
+    <value>Cerrahi</value>
+  </data>
+  <data name="testimonial" xml:space="preserve">
+    <value>Yorumlar</value>
+  </data>
+  <data name="touch" xml:space="preserve">
+    <value>İletişim</value>
+  </data>
+  <data name="userDetails" xml:space="preserve">
+    <value>Kullanıcı Bilgileri</value>
+  </data>
+  <data name="view" xml:space="preserve">
+    <value>Ayrıntılar</value>
+  </data>
+  <data name="viewAll" xml:space="preserve">
+    <value>Hepsini Görüntüle</value>
+  </data>
+  <data name="viewDep" xml:space="preserve">
+    <value>Klinikleri Görüntüle</value>
+  </data>
+  <data name="yourAppointments" xml:space="preserve">
+    <value>Randevularınız</value>
+  </data>
+  <data name="yourEmail" xml:space="preserve">
+    <value>E-postanız</value>
+  </data>
+  <data name="yourPassword" xml:space="preserve">
+    <value>Şifreniz</value>
   </data>
 </root>
