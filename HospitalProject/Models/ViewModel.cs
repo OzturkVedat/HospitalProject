@@ -54,12 +54,16 @@ namespace HospitalProject.Models
         public Department department { get; set; }
         public List<Department> Departments { get; set; }
     }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
     public class PatientViewModel :Appointment         // for new appointments
 =======
     public class PatientViewModel        // for new appointments
 >>>>>>> Stashed changes
+=======
+    public class PatientViewModel        // for new appointments
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
     {
         public Patient? Patient { get; set; }
         public Appointment? Appointment { get; set; }

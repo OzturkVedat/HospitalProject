@@ -33,8 +33,6 @@ namespace HospitalProject.Controllers
                         Departments = _context.Departments.ToList(),
                         doctor = new Doctor(),
                     };
-                    var doctors = _context.Doctors.ToList();  // LINQ
-                    var viewModel = new AdminDocViewModel { Doctors = doctors };
                     return View(section, viewModel);
                 }
             }
@@ -194,23 +192,6 @@ namespace HospitalProject.Controllers
                 return RedirectToAction("AdminPanel");
             }
             else
-                Console.WriteLine("VALID DOCTOR MODEL");
-                return RedirectToAction("AdminPanel");
-            }
-            else
-            {
-                AdminDocViewModel viewModel = new AdminDocViewModel();
-                viewModel.doctor = newDoctor;
-                return View("~/Views/Admin/_section1.cshtml", viewModel);
-            }
-        }
-
-        public IActionResult DoctorView(int id)
-        {
-            // Retrieve the doctor from the database
-            var doctor = _context.Doctors.Find(id);
-
-            if (doctor == null)
             {
                 AdminDocViewModel viewModel = new AdminDocViewModel();
                 viewModel.doctor = doctor;

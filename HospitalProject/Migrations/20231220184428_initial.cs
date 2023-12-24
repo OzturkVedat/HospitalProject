@@ -179,9 +179,10 @@ namespace HospitalProject.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DepartmentId = table.Column<int>(type: "int", nullable: true),
-                    StartHour = table.Column<int>(type: "int", nullable: true),
-                    EndHour = table.Column<int>(type: "int", nullable: true)
+                    StartHour = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EndHour = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Shift = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

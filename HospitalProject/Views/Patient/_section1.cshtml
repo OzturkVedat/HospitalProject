@@ -2,11 +2,18 @@
     Layout = "_PatientLayout.cshtml";
 }
 @model ICollection<Appointment>
+<<<<<<< HEAD
 <section id="section1" style="display: flex; flex-direction: column; align-items: center;">
     <h2 style="margin-bottom: 20px;">@_localization.GetKey("yourAppointments").Value</h2>
     @if (Model != null && Model.Any())
     {
         <table style="width: 300px;">
+=======
+<section id="section1" style="display: flex;">
+    @if (Model != null && Model.Any())
+    {
+        <table>
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
             <thead>
                 <tr>
                     <th>@_localization.GetKey("patient").Value</th>

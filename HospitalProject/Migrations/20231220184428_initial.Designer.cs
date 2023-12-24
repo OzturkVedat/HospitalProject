@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231219125212_initial")]
+    [Migration("20231220184428_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -105,11 +105,11 @@ namespace HospitalProject.Migrations
 
             modelBuilder.Entity("HospitalProject.Models.Appointment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -331,12 +331,12 @@ namespace HospitalProject.Migrations
             modelBuilder.Entity("HospitalProject.Models.Appointment", b =>
                 {
                     b.HasOne("HospitalProject.Models.Department", "Department")
-                        .WithMany()
+                        .WithMany("Appointments")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HospitalProject.Models.Doctor", "Doctor")
-                        .WithMany()
+                        .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -355,10 +355,12 @@ namespace HospitalProject.Migrations
 
             modelBuilder.Entity("HospitalProject.Models.Doctor", b =>
                 {
-                    b.HasOne("HospitalProject.Models.Department", null)
+                    b.HasOne("HospitalProject.Models.Department", "Department")
                         .WithMany("Doctors")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -414,7 +416,14 @@ namespace HospitalProject.Migrations
 
             modelBuilder.Entity("HospitalProject.Models.Department", b =>
                 {
+                    b.Navigation("Appointments");
+
                     b.Navigation("Doctors");
+                });
+
+            modelBuilder.Entity("HospitalProject.Models.Doctor", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("HospitalProject.Models.Patient", b =>

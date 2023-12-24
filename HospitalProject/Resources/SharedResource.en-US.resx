@@ -141,9 +141,12 @@
   <data name="contact" xml:space="preserve">
     <value>Contact Us</value>
   </data>
+<<<<<<< HEAD
   <data name="createAccount" xml:space="preserve">
     <value>Create Your Account</value>
   </data>
+=======
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
   <data name="createApp" xml:space="preserve">
     <value>Create Appointment</value>
   </data>
@@ -225,6 +228,7 @@
   <data name="lastName" xml:space="preserve">
     <value>Last Name</value>
   </data>
+<<<<<<< HEAD
   <data name="links" xml:space="preserve">
     <value>Links</value>
   </data>
@@ -237,6 +241,11 @@
   <data name="newsletter" xml:space="preserve">
     <value>Newsletter</value>
   </data>
+=======
+  <data name="login" xml:space="preserve">
+    <value>Log In</value>
+  </data>
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
   <data name="noDocInDep" xml:space="preserve">
     <value>No doctors in this department.</value>
   </data>
@@ -261,9 +270,12 @@
   <data name="phone" xml:space="preserve">
     <value>Phone Number</value>
   </data>
+<<<<<<< HEAD
   <data name="reachAt" xml:space="preserve">
     <value>Reach At..</value>
   </data>
+=======
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
   <data name="readMore" xml:space="preserve">
     <value>Read More</value>
   </data>
@@ -300,9 +312,12 @@
   <data name="submit" xml:space="preserve">
     <value>Submit</value>
   </data>
+<<<<<<< HEAD
   <data name="subscribe" xml:space="preserve">
     <value>Subscribe</value>
   </data>
+=======
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
   <data name="surgery" xml:space="preserve">
     <value>Surgery</value>
   </data>
@@ -312,9 +327,12 @@
   <data name="touch" xml:space="preserve">
     <value>Get In Touch</value>
   </data>
+<<<<<<< HEAD
   <data name="userDetails" xml:space="preserve">
     <value>User Details</value>
   </data>
+=======
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
   <data name="view" xml:space="preserve">
     <value>View</value>
   </data>
@@ -324,6 +342,7 @@
   <data name="viewDep" xml:space="preserve">
     <value>View Department</value>
   </data>
+<<<<<<< HEAD
   <data name="yourAppointments" xml:space="preserve">
     <value>Your Appointments</value>
   </data>
@@ -333,4 +352,6 @@
   <data name="yourPassword" xml:space="preserve">
     <value>Your password</value>
   </data>
+=======
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
 </root>

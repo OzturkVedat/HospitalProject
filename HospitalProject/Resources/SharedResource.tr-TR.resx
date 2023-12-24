@@ -141,9 +141,12 @@
   <data name="contact" xml:space="preserve">
     <value>Bizimle İletişime Geç</value>
   </data>
+<<<<<<< HEAD
   <data name="createAccount" xml:space="preserve">
     <value>Hesap Oluşturun</value>
   </data>
+=======
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
   <data name="createApp" xml:space="preserve">
     <value>Randevu Oluştur</value>
   </data>
@@ -225,6 +228,7 @@
   <data name="lastName" xml:space="preserve">
     <value>Soyad</value>
   </data>
+<<<<<<< HEAD
   <data name="links" xml:space="preserve">
     <value>Bağlantılar</value>
   </data>
@@ -237,6 +241,11 @@
   <data name="newsletter" xml:space="preserve">
     <value>Haberler</value>
   </data>
+=======
+  <data name="login" xml:space="preserve">
+    <value>Giriş Yap</value>
+  </data>
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
   <data name="noDocInDep" xml:space="preserve">
     <value>Bu klinikte doktor kaydı bulunmamaktadır.</value>
   </data>
@@ -261,9 +270,12 @@
   <data name="phone" xml:space="preserve">
     <value>Telefon Numarası</value>
   </data>
+<<<<<<< HEAD
   <data name="reachAt" xml:space="preserve">
     <value>İletişim</value>
   </data>
+=======
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
   <data name="readMore" xml:space="preserve">
     <value>Devamını Oku</value>
   </data>
@@ -300,9 +312,12 @@
   <data name="submit" xml:space="preserve">
     <value>Kaydet</value>
   </data>
+<<<<<<< HEAD
   <data name="subscribe" xml:space="preserve">
     <value>Abone Ol</value>
   </data>
+=======
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
   <data name="surgery" xml:space="preserve">
     <value>Cerrahi</value>
   </data>
@@ -312,9 +327,12 @@
   <data name="touch" xml:space="preserve">
     <value>İletişim</value>
   </data>
+<<<<<<< HEAD
   <data name="userDetails" xml:space="preserve">
     <value>Kullanıcı Bilgileri</value>
   </data>
+=======
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
   <data name="view" xml:space="preserve">
     <value>Ayrıntılar</value>
   </data>
@@ -324,6 +342,7 @@
   <data name="viewDep" xml:space="preserve">
     <value>Klinikleri Görüntüle</value>
   </data>
+<<<<<<< HEAD
   <data name="yourAppointments" xml:space="preserve">
     <value>Randevularınız</value>
   </data>
@@ -333,4 +352,6 @@
   <data name="yourPassword" xml:space="preserve">
     <value>Şifreniz</value>
   </data>
+=======
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
 </root>

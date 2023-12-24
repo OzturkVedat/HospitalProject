@@ -2,11 +2,17 @@
     Layout = "_PatientLayout.cshtml";
 }
 
+<<<<<<< HEAD
 <section id="section3" style="display: flex; flex-direction: column; align-items: center;">
     @model Patient
     <h2 style="margin-bottom: 20px;">@_localization.GetKey("userDetails").Value</h2>
 
     <dl style="width: 300px;">
+=======
+<section id="section3" style="display: flex;">
+    @model Patient
+    <dl>
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
         <dt>@_localization.GetKey("firstName").Value</dt>
         <dd>@Model.Name</dd>
 

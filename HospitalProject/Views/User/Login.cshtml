@@ -49,7 +49,21 @@
                                     onclick="signIn()">
                                 @_localization.GetKey("signUp").Value
                             </button>
+<<<<<<< HEAD
                         </div>                        
+=======
+                        </div>
+                        <!-- Add this within the <form> tag -->
+                        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                        {
+                            <script>
+                                $(document).ready(function () {
+                                    $('#errorMessage').text('@Html.Raw(ViewBag.ErrorMessage)');
+                                    $('#errorModal').modal('show');
+                                });
+                            </script>
+                        }
+>>>>>>> 70bb60e2bba537100c2b20f3ee40149dd90b72a1
                     </form>
                 </div>
             </div>
